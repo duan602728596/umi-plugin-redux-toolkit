@@ -6,3 +6,8 @@ export interface IgnoreOptions {
 }
 
 export type sliceOptionsItem = CreateSliceOptions | Slice;
+
+export interface RuntimeReduxToolkit {
+  initialState?: any;
+  ignoreOptions?: IgnoreOptions;
+}
