@@ -58,3 +58,8 @@ export function storeFactory(initialState: DeepPartial<any> = {}, otherIgnoreOpt
 }
 
 export default store;
+
+/* replace reducers */
+export function replaceReducers(reducers: ReducersMapObject): void {
+  store.replaceReducer(createReducer(reducers));
+}

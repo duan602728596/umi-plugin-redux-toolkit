@@ -43,7 +43,7 @@ export function formatReducers(reducers: ValidateSliceCaseReducers<any, any>, re
 }
 
 /* 创建reducers */
-export function toReducers(sliceOptions: Array<sliceOptionsItem>): ReducersMapObject {
+export function toReducers(sliceOptions: Array<sliceOptionsItem> = []): ReducersMapObject {
   const result: ReducersMapObject = {};
 
   for (const item of sliceOptions) {

@@ -6,6 +6,7 @@
     "start": "rimraf ./dist && cross-env NODE_ENV=development gulp",
     "build": "rimraf ./dist && cross-env NODE_ENV=production gulp",
     "dev": "cross-env APP_ROOT=example umi dev",
+    "test": "cross-env TEST=1 umi-test",
     "eslint": "eslint ./ --fix",
     "eslint:no-fix": "eslint ./"
   },
@@ -16,6 +17,7 @@
     "@reduxjs/toolkit": "^1.4.0",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
+    "@umijs/test": "^3.2.24",
     "@umijs/types": "^3.2.24",
     "commitizen": "^4.2.2",
     "cross-env": "^7.0.2",
