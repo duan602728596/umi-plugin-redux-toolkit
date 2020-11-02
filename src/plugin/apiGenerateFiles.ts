@@ -17,6 +17,7 @@ async function readFile(file: string): Promise<string> {
  */
 function apiGenerateFiles(api: IApi): void {
   async function onGenerateFiles(): Promise<void> {
+    /* ============= options ============= */
     // options
     const optionsContent: string = await readFile(path.join(__dirname, '../template/options.ts'));
     const ignoreOptions: string = api?.config?.ignoreOptions
@@ -37,19 +38,25 @@ export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
 export const sliceOptions: Array<Slice> = ${ modelsContent }`
     });
 
-    // 创建store
+    /* ============= 创建store ============= */
     api.writeTmpFile({
       path: 'redux-toolkit/store.ts',
       content: await readFile(path.join(__dirname, '../template/store.ts'))
     });
 
-    // runtime
+    /* ============= 创建runtime ============= */
     api.writeTmpFile({
       path: 'redux-toolkit/runtime.tsx',
       content: await readFile(path.join(__dirname, '../template/runtime.tsx'))
     });
 
-    // types
+    /* ============= 创建utils ============= */
+    api.writeTmpFile({
+      path: 'redux-toolkit/utils.ts',
+      content: await readFile(path.join(__dirname, '../template/utils.ts'))
+    });
+
+    /* ============= 创建types.d.ts文件 ============= */
     api.writeTmpFile({
       path: 'redux-toolkit/types.d.ts',
       content: await readFile(path.join(__dirname, '../template/types.d.ts'))
