@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 import { utils, IApi } from 'umi';
 import describe from './describe';
-import { getAllModels } from './utils';
+import { getAllModels } from './getModels';
 
 const { lodash: _ }: typeof utils = utils;
 

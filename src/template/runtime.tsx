@@ -5,7 +5,7 @@ import { ApplyPluginsType } from 'umi';
 import { storeFactory } from './store';
 // @ts-ignore
 import { plugin } from '../core/umiExports';
-import { IgnoreOptions } from './options';
+import { IgnoreOptions } from './types';
 
 export function rootContainer(container: ReactNode): ReactElement {
   const runtimeReduxToolkit: any = plugin.applyPlugins({

@@ -14,7 +14,7 @@ function describe(api: IApi): void {
         return joi.object({
           ignoreOptions: joi.object(), // 配置忽略的数组
           singular: joi.bool(),        // 是否为单数
-          modelName: joi.string()      // 自定义model
+          modelName: joi.string()      // 自定义model文件夹的名称
         });
       }
     }

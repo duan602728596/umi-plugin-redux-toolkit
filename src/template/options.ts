@@ -1,10 +1,5 @@
-import { CreateSliceOptions } from '@reduxjs/toolkit';
-
-export interface IgnoreOptions {
-  ignoredPaths?: Array<string>;
-  ignoredActions?: Array<string>;
-}
+import type { IgnoreOptions, sliceOptionsItem } from './types';
 
 // [template]
 // export const ignoreOptions: IgnoreOptions = {};
-// export const sliceOptions: Array<CreateSliceOptions> = [];
+// export const sliceOptions: Array<sliceOptionsItem> = [];
