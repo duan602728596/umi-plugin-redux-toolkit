@@ -1,4 +1,2 @@
-const plugin: Function = require('./index').default;
-
-module.exports = plugin;
-module.exports.default = plugin;
+module.exports = require('./index').default;
+module.exports.default = require('./index').default;
