@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 import style from './index.less';
-import { requestList, add } from './models/index';
+import { requestList } from './models/index';
+import { setAddNumber } from './models/add';
 
 /* state */
 const state = createStructuredSelector({
@@ -12,7 +13,7 @@ const state = createStructuredSelector({
   ),
 
   number: createSelector(
-    ({ index }) => index.number,
+    ({ add }) => add.number,
     (data) => data
   )
 });
@@ -22,7 +23,7 @@ function Index(props) {
   const dispatch = useDispatch();
 
   function handleAddClick(event) {
-    dispatch(add());
+    dispatch(setAddNumber());
   }
 
   function listRender() {

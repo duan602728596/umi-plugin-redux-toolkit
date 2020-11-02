@@ -1,4 +1,4 @@
-import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // mockDate
 const res = [
@@ -18,20 +18,11 @@ export const requestList = createAsyncThunk('index/requestList', async function(
 
   return res;
 });
-export const add = createAction('index/add');
 
 export default {
   name: 'index',
   initialState: {
-    dataList: [],
-    number: 0
-  },
-  reducers: {
-    [add](state, action) {
-      state.number = state.number + 1;
-
-      return state;
-    }
+    dataList: []
   },
   extraReducers: {
     [requestList.fulfilled](state, action) {
