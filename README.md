@@ -28,6 +28,7 @@ npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 导出createSlice的配置[参考](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/index.js)。   
 
 导出createSlice的配置时，如果reduces的key是通过createAction创建的，会自动去掉命名空间。例如：
+
 ```javascript
 import { createAction } from '@redux/toolkit';
 
@@ -41,5 +42,16 @@ export default {
       return state;
     }
   }
+};
+```
+
+## 初始值
+
+在app.js内导出
+
+```
+export const reduxToolkit = {
+  initialState: {}, // 初始化redux的值
+  ignoreOptions: {} // 同上面的ignoreOptions配置，会做合并处理
 };
 ```
