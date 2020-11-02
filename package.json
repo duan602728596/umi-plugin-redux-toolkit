@@ -1,6 +1,6 @@
 {
   "name": "umi-plugin-redux-toolkit",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "dist/plugin/cjs.js",
   "scripts": {
     "start": "rimraf ./dist && cross-env NODE_ENV=development gulp",
