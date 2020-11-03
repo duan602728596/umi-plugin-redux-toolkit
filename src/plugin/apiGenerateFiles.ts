@@ -26,27 +26,17 @@ function apiGenerateFiles(api: IApi): void {
 
     // models
     const models: Array<string> = await getAllModels(api);
-    const esModuleArray: Array<{ name: string; content: string }> = models.map((item: string, index: number) => {
-      const parseResult: path.ParsedPath = path.parse(item);
-      const moduleName: string = `model_${ parseResult.name }_${ index }`;
-
-      return {
-        name: moduleName,
-        content: `import ${ moduleName } from '${ item }';`
-      };
-    });
-    const moduleVariable: string = models.length > 0 ? `[
-${ esModuleArray.map((item: { name: string; content: string }): string => `  ${ item.name }`).join(',\n') }
+    const moduleArray: Array<string> = models.map((item: string) => `  require('${ item }').default`);
+    const modelsContent: string = moduleArray.length > 0 ? `[
+${ moduleArray.join(',\n') }
 ]` : '[]';
 
     api.writeTmpFile({
       path: 'plugin-redux-toolkit/options.ts',
       content: `${ optionsContent }
 
-${ esModuleArray.map((item: { name: string; content: string }): string => item.content).join('\n') }
-
 export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
-export const sliceOptions: Array<sliceOptionsItem> = ${ moduleVariable }`
+export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent }`
     });
 
     /* ============= 创建store ============= */
