@@ -32,7 +32,7 @@ ${ requireArray.join(',\n') }
 ]` : '[]';
 
     api.writeTmpFile({
-      path: 'redux-toolkit/options.ts',
+      path: 'plugin-redux-toolkit/options.ts',
       content: `${ optionsContent }
 export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
 export const sliceOptions: Array<Slice> = ${ modelsContent }`
@@ -40,25 +40,25 @@ export const sliceOptions: Array<Slice> = ${ modelsContent }`
 
     /* ============= 创建store ============= */
     api.writeTmpFile({
-      path: 'redux-toolkit/store.ts',
+      path: 'plugin-redux-toolkit/store.ts',
       content: await readTemplateFile('store.ts')
     });
 
     /* ============= 创建runtime ============= */
     api.writeTmpFile({
-      path: 'redux-toolkit/runtime.tsx',
+      path: 'plugin-redux-toolkit/runtime.tsx',
       content: await readTemplateFile('runtime.tsx')
     });
 
     /* ============= 创建utils ============= */
     api.writeTmpFile({
-      path: 'redux-toolkit/utils.ts',
+      path: 'plugin-redux-toolkit/utils.ts',
       content: await readTemplateFile('utils.ts')
     });
 
     /* ============= 创建types.d.ts文件 ============= */
     api.writeTmpFile({
-      path: 'redux-toolkit/types.d.ts',
+      path: 'plugin-redux-toolkit/types.d.ts',
       content: await readTemplateFile('types.d.ts')
     });
   }
