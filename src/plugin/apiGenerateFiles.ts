@@ -26,9 +26,9 @@ function apiGenerateFiles(api: IApi): void {
 
     // models
     const models: Array<string> = await getAllModels(api);
-    const moduleArray: Array<string> = models.map((item: string) => `  require('${ item }').default`);
-    const modelsContent: string = moduleArray.length > 0 ? `[
-${ moduleArray.join(',\n') }
+    const modelsModuleRequireArray: Array<string> = models.map((item: string) => `  require('${ item }').default`);
+    const modelsContent: string = modelsModuleRequireArray.length > 0 ? `[
+${ modelsModuleRequireArray.join(',\n') }
 ]` : '[]';
 
     api.writeTmpFile({
