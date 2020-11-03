@@ -35,7 +35,7 @@ ${ requireArray.join(',\n') }
       path: 'plugin-redux-toolkit/options.ts',
       content: `${ optionsContent }
 export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
-export const sliceOptions: Array<Slice> = ${ modelsContent }`
+export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent }`
     });
 
     /* ============= 创建store ============= */
