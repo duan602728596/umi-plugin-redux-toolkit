@@ -1,6 +1,6 @@
 # umi-plugin-redux-toolkit
 
-umi插件，使用@reduxjs/toolkit。
+umi3的插件，使用@reduxjs/toolkit。
 
 ## 安装
 
