@@ -2,6 +2,7 @@ import { promisify } from 'util';
 import * as path from 'path';
 import { utils, IApi } from 'umi';
 import type { IOptions } from 'glob';
+import { getConfig, PluginConfig } from './utils';
 
 const { lodash: _, glob }: typeof utils = utils;
 const globPromise: (pattern: string, options?: IOptions) => Promise<Array<string>> = promisify(glob);
@@ -11,11 +12,13 @@ const globPromise: (pattern: string, options?: IOptions) => Promise<Array<string
  * @param { IApi } api
  */
 export function getModelDir(api: IApi): string {
-  if (api?.config?.modelName) {
-    return api?.config?.modelName;
+  const config: PluginConfig | undefined = getConfig(api);
+
+  if (config?.modelName) {
+    return config?.modelName;
   }
 
-  return api?.config?.singular ? 'model' : 'models';
+  return config?.singular ? 'model' : 'models';
 }
 
 /**
