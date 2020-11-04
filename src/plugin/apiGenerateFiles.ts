@@ -2,6 +2,7 @@ import * as path from 'path';
 import { promises as fs } from 'fs';
 import type { IApi } from 'umi';
 import { getAllModels } from './getModels';
+import { getConfig, PluginConfig } from './utils';
 
 /**
  * 读取文件
@@ -22,17 +23,19 @@ function replaceFileName(filename: string): string {
  */
 function apiGenerateFiles(api: IApi): void {
   async function onGenerateFiles(): Promise<void> {
+    const config: PluginConfig | undefined = getConfig(api);
+
     /* ============= options ============= */
     // options
     const optionsContent: string = await readTemplateFile('options.ts');
-    const ignoreOptions: string = api?.config?.ignoreOptions
-      ? JSON.stringify(api.config.ignoreOptions, null, 2)
+    const ignoreOptions: string = config?.ignoreOptions
+      ? JSON.stringify(config.ignoreOptions, null, 2)
       : '{}';
 
     // models
     const models: Array<string> = await getAllModels(api);
 
-    if (api?.config?.esModule) {
+    if (config?.esModule) {
       type moduleItem = { name: string; content: string };
 
       // es6

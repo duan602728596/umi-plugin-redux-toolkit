@@ -2,6 +2,7 @@ import * as path from 'path';
 import { utils, IApi } from 'umi';
 import describe from './describe';
 import apiGenerateFiles from './apiGenerateFiles';
+import { pluginName } from './utils';
 
 const { lodash: _ }: typeof utils = utils;
 
@@ -19,5 +20,7 @@ function umiPluginReduxToolkit(api: IApi): void {
     return 'reduxToolkit';
   });
 }
+
+umiPluginReduxToolkit.pluginName = pluginName;
 
 export default umiPluginReduxToolkit;
