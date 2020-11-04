@@ -50,7 +50,9 @@ function apiGenerateFiles(api: IApi): void {
         };
       });
       const importContent: string = modelsEsModuleArray.map((item: moduleItem): string => item.content).join('\n');
-      const variableContent: string = modelsEsModuleArray.map((item: moduleItem): string => item.name).join(',\n');
+      const variableContent: string = modelsEsModuleArray.length > 0
+        ? `[\n${ modelsEsModuleArray.map((item: moduleItem): string => `  ${ item.name }`).join(',\n') }\n]`
+        : '[]';
 
       api.writeTmpFile({
         path: 'plugin-redux-toolkit/options.ts',

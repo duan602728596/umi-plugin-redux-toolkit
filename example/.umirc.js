@@ -7,10 +7,7 @@ const config = {
   routes: [{
     path: '/index',
     component: path.join(__dirname, 'pages/index.js')
-  }],
-  'redux-toolkit': {
-    esModule: true
-  }
+  }]
 };
 
 export default defineConfig(config);
