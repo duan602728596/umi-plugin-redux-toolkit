@@ -42,7 +42,7 @@ function apiGenerateFiles(api: IApi): void {
       const modelsEsModuleArray: Array<moduleItem> = models.map((item: string, index: number): moduleItem => {
         const parseResult: path.ParsedPath = path.parse(item);
         const filename: string = replaceFileName(parseResult.name);
-        const variable: string = `model_${ filename }_${ index };`;
+        const variable: string = `model_${ filename }_${ index }`;
 
         return {
           name: variable,
