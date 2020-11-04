@@ -53,7 +53,7 @@ export function toReducers(sliceOptions: Array<sliceOptionsItem> = []): Reducers
 
     if (isSlice(item)) {
       result[item.name] = item.reducer;
-    } else {
+    } else if (item.name) {
       const options: CreateSliceOptions = { ...item };               // 创建slice的配置
       const regexp: RegExp = new RegExp(`^${ item.name }/`); // 命名空间的判断
 
