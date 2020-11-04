@@ -11,6 +11,11 @@ async function readTemplateFile(file: string): Promise<string> {
   return await fs.readFile(path.join(__dirname, '../template', file), { encoding: 'utf8' });
 }
 
+/* 替换文件名 */
+function replaceFileName(filename: string): string {
+  return filename.replace(/[~`!@#$%^&*()-+={}\[\]\\|<>?/,\.]/ig, '_');
+}
+
 /**
  * api.onGenerateFiles
  * @param { IApi } api
@@ -26,18 +31,48 @@ function apiGenerateFiles(api: IApi): void {
 
     // models
     const models: Array<string> = await getAllModels(api);
-    const modelsModuleRequireArray: Array<string> = models.map((item: string) => `  require('${ item }').default`);
-    const modelsContent: string = modelsModuleRequireArray.length > 0 ? `[
+
+    if (api?.config?.esModule) {
+      type moduleItem = { name: string; content: string };
+
+      // es6
+      const modelsEsModuleArray: Array<moduleItem> = models.map((item: string, index: number): moduleItem => {
+        const parseResult: path.ParsedPath = path.parse(item);
+        const filename: string = replaceFileName(parseResult.name);
+        const variable: string = `model_${ filename }_${ index };`;
+
+        return {
+          name: variable,
+          content: `import ${ variable } from '${ item }';`
+        };
+      });
+      const importContent: string = modelsEsModuleArray.map((item: moduleItem): string => item.content).join('\n');
+      const variableContent: string = modelsEsModuleArray.map((item: moduleItem): string => item.name).join(',\n');
+
+      api.writeTmpFile({
+        path: 'plugin-redux-toolkit/options.ts',
+        content: `${ optionsContent }
+
+${ importContent }
+
+export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
+export const sliceOptions: Array<sliceOptionsItem> = ${ variableContent };`
+      });
+    } else {
+      // commonjs
+      const modelsModuleRequireArray: Array<string> = models.map((item: string) => `  require('${ item }').default`);
+      const modelsContent: string = modelsModuleRequireArray.length > 0 ? `[
 ${ modelsModuleRequireArray.join(',\n') }
 ]` : '[]';
 
-    api.writeTmpFile({
-      path: 'plugin-redux-toolkit/options.ts',
-      content: `${ optionsContent }
+      api.writeTmpFile({
+        path: 'plugin-redux-toolkit/options.ts',
+        content: `${ optionsContent }
 
 export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
 export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`
-    });
+      });
+    }
 
     /* ============= 创建store ============= */
     api.writeTmpFile({
