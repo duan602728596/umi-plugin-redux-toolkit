@@ -20,6 +20,21 @@ npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 
 * modelName { string }: 自定义model文件夹的名称，配置后忽略singular配置。
 * singular { boolean }: 目录是否为单数。
+* esModule { boolean }: 使用es6模块的方式引入。
+
+### 如何配置
+
+```javascript
+// .umirc.js or umi.config.js
+import { defineConfig } from 'umi';
+
+export default {
+  // umi-plugin-redux-toolkit的配置
+  reduxToolkit: {
+    esModule: true
+  }
+};
+```
 
 ## 如何使用
 
