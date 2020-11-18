@@ -1,4 +1,4 @@
-import type { CreateSliceOptions, Slice } from '@reduxjs/toolkit';
+import type { CreateSliceOptions, Slice, DeepPartial } from '@reduxjs/toolkit';
 
 export interface IgnoreOptions {
   ignoredPaths?: Array<string>;
@@ -8,6 +8,7 @@ export interface IgnoreOptions {
 export type sliceOptionsItem = CreateSliceOptions | Slice;
 
 export interface RuntimeReduxToolkit {
-  initialState?: any;
+  initialState?: DeepPartial<any>;
   ignoreOptions?: IgnoreOptions;
+  warnAfter?: number;
 }
