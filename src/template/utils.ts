@@ -2,23 +2,25 @@ import { createSlice, Slice, ReducersMapObject, CreateSliceOptions, ValidateSlic
 import type { IgnoreOptions, sliceOptionsItem } from './types';
 
 /* 合并ignore选项 */
-export function mergeIgnoreOptions(ignoreOptions?: IgnoreOptions, otherIgnoreOptions?: IgnoreOptions): IgnoreOptions {
+export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undefined>): IgnoreOptions {
   const ignore: IgnoreOptions = {};
 
-  if (ignoreOptions?.ignoredPaths) {
-    ignore.ignoredPaths = [...ignoreOptions.ignoredPaths];
-  }
+  const merge: (k: string, o: Array<string>) => void = (k: string, o: Array<string>): void => {
+    if (!(k in ignore)) {
+      ignore[k] = [];
+    }
 
-  if (otherIgnoreOptions?.ignoredPaths) {
-    ignore.ignoredPaths = [...(ignore.ignoredPaths ?? []), ...otherIgnoreOptions.ignoredPaths];
-  }
+    ignore[k].push(...o);
+  };
 
-  if (ignoreOptions?.ignoredActions) {
-    ignore.ignoredActions = [...ignoreOptions.ignoredActions];
-  }
-
-  if (otherIgnoreOptions?.ignoredActions) {
-    ignore.ignoredActions = [...(ignore.ignoredActions ?? []), ...otherIgnoreOptions.ignoredActions];
+  for (const item of ignoreOptions) {
+    if (item /* IgnoreOptions | undefined */) {
+      for (const key in item) {
+        if (item[key]?.length) {
+          merge(key, item[key] /* Array<string> */);
+        }
+      }
+    }
   }
 
   return ignore;
