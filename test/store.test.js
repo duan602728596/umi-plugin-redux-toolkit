@@ -2,7 +2,12 @@ import { storeFactory, replaceReducers } from '../src/template/store';
 import { toReducers } from '../src/template/utils';
 
 test('store', function() {
-  const store = storeFactory();
+  const store = storeFactory({
+    ignoreOptions: {
+      ignoredPaths: ['test_store.text'],
+      ignoredActions: ['test_store/setText']
+    }
+  });
 
   replaceReducers(toReducers([{
     name: 'test_store',
