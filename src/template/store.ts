@@ -23,14 +23,14 @@ export function createReducer(reducers: ReducersMapObject): Reducer {
 const reducer: Reducer = createReducer(toReducers(sliceOptions));
 
 /* store */
-const store: Store = {} as Store;
+export let store: Store;
 
 /**
  * 创建并返回store
  * @param { RuntimeReduxToolkit } runtimeReduxToolkit: 初始化的值
  */
 export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Store {
-  if (Object.keys(store).length === 0) {
+  if (!store) {
     const { initialState, ignoreOptions: otherIgnoreOptions, warnAfter }: RuntimeReduxToolkit = runtimeReduxToolkit;
 
     // store的配置
@@ -51,7 +51,7 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
     options.middleware = getDefaultMiddleware(defaultMiddlewareOptions);
 
     /* 合并store */
-    Object.assign(store, configureStore(options));
+    store = configureStore(options);
   }
 
   return store;
