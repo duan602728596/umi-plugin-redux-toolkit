@@ -21,6 +21,7 @@ npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 * modelName { string }: 自定义model文件夹的名称，配置后忽略singular配置。
 * singular { boolean }: 目录是否为单数。
 * esModule { boolean }: 使用es6模块的方式引入。
+* ignore { string | Array<string> }: 忽略的model文件。（参考glob的[ignore](https://www.npmjs.com/package/glob#options)配置）
 
 ### 如何配置
 
