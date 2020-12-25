@@ -10,6 +10,7 @@ export interface PluginConfig {
   singular?: boolean;
   modelName?: string;
   esModule?: boolean;
+  ignore?: string | ReadonlyArray<string>;
 }
 
 export function getConfig(api: IApi): PluginConfig | undefined {

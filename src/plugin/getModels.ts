@@ -23,11 +23,16 @@ export function getModelDir(api: IApi): string {
 
 /**
  * 获取models
+ * @param { IApi } api
  * @param { string } cwd: 目录
  * @param { string | undefined } pattern
  */
-export async function getModels(cwd: string, pattern?: string): Promise<Array<string>> {
-  const files: Array<string> = await globPromise(pattern ?? '**/*.{ts,tsx,js,jsx}', { cwd });
+export async function getModels(api: IApi, cwd: string, pattern?: string): Promise<Array<string>> {
+  const config: PluginConfig | undefined = getConfig(api);
+  const files: Array<string> = await globPromise(pattern ?? '**/*.{ts,tsx,js,jsx}', {
+    cwd,
+    ignore: config?.ignore
+  });
 
   return files.filter((file: string): boolean => {
     return !file.endsWith('.d.ts')
@@ -54,7 +59,7 @@ export async function getAllModels(api: IApi): Promise<Array<string>> {
   const srcModelsPath: string = getModelsPath(api);
 
   return _.uniq([
-    ...await getModels(srcModelsPath),
-    ...await getModels(api.paths.absPagesPath!, `**/${ getModelDir(api) }/**/*.{ts,tsx,js,jsx}`)
+    ...await getModels(api, srcModelsPath),
+    ...await getModels(api, api.paths.absPagesPath!, `**/${ getModelDir(api) }/**/*.{ts,tsx,js,jsx}`)
   ]);
 }
