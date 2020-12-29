@@ -57,8 +57,6 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
   return store;
 }
 
-export default store;
-
 /* replace reducers */
 export function replaceReducers(reducers: ReducersMapObject): void {
   store.replaceReducer(createReducer(reducers));
