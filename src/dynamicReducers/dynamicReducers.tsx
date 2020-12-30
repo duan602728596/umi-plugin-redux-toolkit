@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useMemo, useContext, ReactElement, FunctionComponent, ClassicComponentClass } from 'react';
+import { createElement, useMemo, useContext, ReactElement, FunctionComponent, ClassicComponentClass } from 'react';
 import DynamicReducersContext, { DynamicReducersContextType } from './DynamicReducersContext';
 import type { SliceOptionsItem } from '../template/types';
 
@@ -37,7 +36,7 @@ function dynamicReducers(sliceOptions: SliceOptionsItem | Array<SliceOptionsItem
         }, []);
       }
 
-      return <Module { ...props } />;
+      return createElement(Module, { ...props });
     };
   };
 }
