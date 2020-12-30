@@ -15,8 +15,8 @@ if (!isDevelopment) {
   tsBuildConfig.skipLibCheck = true;
 }
 
-// 编译ts
-function tsProject() {
+// 编译ts plugin
+function tsPluginProject() {
   const result = gulp.src('src/plugin/**/*.{ts,tsx}')
     .pipe(changed('dist/plugin'))
     .pipe(plumber())
@@ -25,11 +25,32 @@ function tsProject() {
   return result.js.pipe(gulp.dest('dist/plugin'));
 }
 
-function tsProdProject() {
+function tsProdPluginProject() {
   const result = gulp.src('src/plugin/**/*.{ts,tsx}')
     .pipe(typescript(tsBuildConfig));
 
   return result.js.pipe(gulp.dest('dist/plugin'));
+}
+
+// 编译ts asyncLoadReducers
+function tsAsyncLoadReducersProject() {
+  const result = gulp.src('src/asyncLoadReducers/**/*.{ts,tsx}')
+    .pipe(changed('dist/asyncLoadReducers'))
+    .pipe(plumber())
+    .pipe(typescript(
+      Object.assign(tsBuildConfig, { module: 'es6' })
+    ));
+
+  return result.js.pipe(gulp.dest('dist/asyncLoadReducers'));
+}
+
+function tsProdAsyncLoadReducersProject() {
+  const result = gulp.src('src/asyncLoadReducers/**/*.{ts,tsx}')
+    .pipe(typescript(
+      Object.assign(tsBuildConfig, { module: 'es6' })
+    ));
+
+  return result.js.pipe(gulp.dest('dist/asyncLoadReducers'));
 }
 
 // copy
@@ -46,7 +67,7 @@ function devWatch() {
 }
 
 if (isDevelopment) {
-  exports.default = gulp.series(gulp.parallel(tsProject, copy), devWatch);
+  exports.default = gulp.series(gulp.parallel(tsPluginProject, tsAsyncLoadReducersProject, copy), devWatch);
 } else {
-  exports.default = gulp.parallel(tsProdProject, copy);
+  exports.default = gulp.parallel(tsProdPluginProject, tsProdAsyncLoadReducersProject, copy);
 }
