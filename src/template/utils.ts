@@ -1,5 +1,5 @@
 import { createSlice, Slice, ReducersMapObject, CreateSliceOptions, ValidateSliceCaseReducers } from '@reduxjs/toolkit';
-import type { IgnoreOptions, sliceOptionsItem } from './types';
+import type { IgnoreOptions, SliceOptionsItem } from './types';
 
 /* 合并ignore选项 */
 export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undefined>): IgnoreOptions {
@@ -27,7 +27,7 @@ export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undef
 }
 
 /* 判断是否是slice */
-export function isSlice(slice: sliceOptionsItem): slice is Slice {
+export function isSlice(slice: SliceOptionsItem): slice is Slice {
   return ('actions' in slice) && ('reducer' in slice);
 }
 
@@ -45,7 +45,7 @@ export function formatReducers(reducers: ValidateSliceCaseReducers<any, any>, re
 }
 
 /* 创建reducers */
-export function toReducers(sliceOptions: Array<sliceOptionsItem> = []): ReducersMapObject {
+export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): ReducersMapObject {
   const result: ReducersMapObject = {};
 
   for (const item of sliceOptions) {

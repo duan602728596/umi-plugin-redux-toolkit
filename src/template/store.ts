@@ -8,7 +8,7 @@ import {
   ConfigureStoreOptions
 } from '@reduxjs/toolkit';
 // @ts-ignore
-import { ignoreOptions, sliceOptions, sliceOptionsItem } from './options';
+import { ignoreOptions, sliceOptions, SliceOptionsItem } from './options';
 import { mergeIgnoreOptions, toReducers } from './utils';
 import type { IgnoreOptions, RuntimeReduxToolkit } from './types';
 
@@ -53,9 +53,9 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
 
 /**
  * 替换reducers
- * @param { Array<sliceOptionsItem> } asyncSliceOptions: 将要合并的slice配置
+ * @param { Array<SliceOptionsItem> } asyncSliceOptions: 将要合并的slice配置
  */
-export function replaceReducers(asyncSliceOptions: Array<sliceOptionsItem>): void {
+export function replaceReducers(asyncSliceOptions: Array<SliceOptionsItem>): void {
   const asyncProcessedReducers: ReducersMapObject = toReducers(asyncSliceOptions); // 已经格式化完毕的，将要合并的reducers配置
 
   Object.assign(processedReducers, asyncProcessedReducers);

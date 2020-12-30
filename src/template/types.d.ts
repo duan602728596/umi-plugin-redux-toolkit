@@ -5,7 +5,7 @@ export interface IgnoreOptions {
   ignoredActions?: Array<string>;
 }
 
-export type sliceOptionsItem = CreateSliceOptions | Slice;
+export type SliceOptionsItem = CreateSliceOptions | Slice;
 
 export interface RuntimeReduxToolkit {
   initialState?: DeepPartial<any>;
