@@ -13,14 +13,8 @@ import { mergeIgnoreOptions, toReducers } from './utils';
 import type { IgnoreOptions, RuntimeReduxToolkit } from './types';
 
 /* 创建reducer */
-export function createReducer(reducers: ReducersMapObject): Reducer {
-  return combineReducers({
-    ...reducers
-  });
-}
-
-/* reducer列表 */
-const reducer: Reducer = createReducer(toReducers(sliceOptions));
+const processedReducers: ReducersMapObject = toReducers(sliceOptions);
+const reducer: Reducer = combineReducers(processedReducers);
 
 /* store */
 export let store: Store;
@@ -59,5 +53,5 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
 
 /* replace reducers */
 export function replaceReducers(reducers: ReducersMapObject): void {
-  store.replaceReducer(createReducer(reducers));
+  store.replaceReducer(combineReducers(reducers));
 }
