@@ -32,25 +32,25 @@ function tsProdPluginProject() {
   return result.js.pipe(gulp.dest('dist/plugin'));
 }
 
-// 编译ts asyncLoadReducers
+// 编译ts dynamicReducers
 function tsAsyncLoadReducersProject() {
-  const result = gulp.src('src/asyncLoadReducers/**/*.{ts,tsx}')
-    .pipe(changed('dist/asyncLoadReducers'))
+  const result = gulp.src('src/dynamicReducers/**/*.{ts,tsx}')
+    .pipe(changed('dist/dynamicReducers'))
     .pipe(plumber())
     .pipe(typescript(
       Object.assign(tsBuildConfig, { module: 'es6' })
     ));
 
-  return result.js.pipe(gulp.dest('dist/asyncLoadReducers'));
+  return result.js.pipe(gulp.dest('dist/dynamicReducers'));
 }
 
 function tsProdAsyncLoadReducersProject() {
-  const result = gulp.src('src/asyncLoadReducers/**/*.{ts,tsx}')
+  const result = gulp.src('src/dynamicReducers/**/*.{ts,tsx}')
     .pipe(typescript(
       Object.assign(tsBuildConfig, { module: 'es6' })
     ));
 
-  return result.js.pipe(gulp.dest('dist/asyncLoadReducers'));
+  return result.js.pipe(gulp.dest('dist/dynamicReducers'));
 }
 
 // copy

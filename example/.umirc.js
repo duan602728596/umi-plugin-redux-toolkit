@@ -15,7 +15,7 @@ const config = {
     }
   ],
   alias: {
-    'umi-plugin-redux-toolkit/asyncLoadReducers': path.join(__dirname, '../asyncLoadReducers.js')
+    'umi-plugin-redux-toolkit/dynamicReducers': path.join(__dirname, '../dynamicReducers.js')
   },
   reduxToolkit: {
     esModule: true,

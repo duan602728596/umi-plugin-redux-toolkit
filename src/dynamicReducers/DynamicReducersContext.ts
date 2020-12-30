@@ -1,10 +1,10 @@
 import { createContext, Context } from 'react';
 import type { SliceOptionsItem } from '../template/types';
 
-export interface AsyncLoadReducersContextType {
+export interface DynamicReducersContextType {
   replaceReducers?(asyncSliceOptions: Array<SliceOptionsItem>): void;
 }
 
-const AsyncLoadReducersContext: Context<AsyncLoadReducersContextType> = createContext({});
+const DynamicReducersContext: Context<DynamicReducersContextType> = createContext({});
 
-export default AsyncLoadReducersContext;
+export default DynamicReducersContext;

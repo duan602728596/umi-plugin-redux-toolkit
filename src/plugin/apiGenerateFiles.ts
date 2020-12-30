@@ -94,9 +94,9 @@ export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`
 
     if (config?.asyncLoadReducers) {
       runtimeTplContent = Mustache.render(runtimeTpl, {
-        importAsyncLoadReducersContext: "import { AsyncLoadReducersContext } from 'umi-plugin-redux-toolkit/asyncLoadReducers'",
+        importDynamicReducers: "import { DynamicReducersContext } from 'umi-plugin-redux-toolkit/dynamicReducers'",
         container: `createElement(
-      AsyncLoadReducersContext.Provider,
+      DynamicReducersContext.Provider,
       {
         value: { replaceReducers }
       },

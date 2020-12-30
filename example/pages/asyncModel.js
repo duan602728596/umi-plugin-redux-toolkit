@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
-import { asyncLoadReducers } from 'umi-plugin-redux-toolkit/asyncLoadReducers';
+import { dynamicReducers } from 'umi-plugin-redux-toolkit/dynamicReducers';
 import style from './index.less';
 import asyncModel, { setAddNumber } from './models/asyncModel.async';
 
@@ -30,4 +30,4 @@ function AsyncModel(props) {
   );
 }
 
-export default asyncLoadReducers(asyncModel)(AsyncModel);
+export default dynamicReducers([asyncModel])(AsyncModel);

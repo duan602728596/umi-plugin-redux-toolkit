@@ -3,7 +3,7 @@ import { createElement, ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { ApplyPluginsType } from 'umi';
 import type { DeepPartial } from '@reduxjs/toolkit';
-{{{ importAsyncLoadReducersContext }}}
+{{{ importDynamicReducers }}}
 import { storeFactory, replaceReducers } from './store';
 // @ts-ignore
 import { plugin } from '../core/umiExports';

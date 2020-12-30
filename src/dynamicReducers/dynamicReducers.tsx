@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useMemo, useContext, ReactElement, FunctionComponent, ClassicComponentClass } from 'react';
-import AsyncLoadReducersContext, { AsyncLoadReducersContextType } from './AsyncLoadReducersContext';
+import DynamicReducersContext, { DynamicReducersContextType } from './DynamicReducersContext';
 import type { SliceOptionsItem } from '../template/types';
 
 interface AsyncLoadReducersReturn {
@@ -19,7 +19,7 @@ function formatSliceOptions(sliceOptions: SliceOptionsItem | Array<SliceOptionsI
  * 异步注入reducer
  * @param { SliceOptionsItem | Array<SliceOptionsItem> } sliceOptions
  */
-function asyncLoadReducers(sliceOptions: SliceOptionsItem | Array<SliceOptionsItem>): AsyncLoadReducersReturn {
+function dynamicReducers(sliceOptions: SliceOptionsItem | Array<SliceOptionsItem>): AsyncLoadReducersReturn {
   let injectModels: boolean = true; // 是否需要注入
 
   /**
@@ -28,7 +28,7 @@ function asyncLoadReducers(sliceOptions: SliceOptionsItem | Array<SliceOptionsIt
    */
   return function(Module: FunctionComponent | ClassicComponentClass): FunctionComponent {
     return function(props: any): ReactElement {
-      const context: AsyncLoadReducersContextType = useContext(AsyncLoadReducersContext);
+      const context: DynamicReducersContextType = useContext(DynamicReducersContext);
 
       if (injectModels) {
         useMemo(function() {
@@ -42,4 +42,4 @@ function asyncLoadReducers(sliceOptions: SliceOptionsItem | Array<SliceOptionsIt
   };
 }
 
-export default asyncLoadReducers;
+export default dynamicReducers;
