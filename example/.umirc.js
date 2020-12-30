@@ -8,8 +8,12 @@ const config = {
     path: '/index',
     component: path.join(__dirname, 'pages/index.js')
   }],
+  alias: {
+    'umi-plugin-redux-toolkit/asyncLoadReducers': path.join(__dirname, '../asyncLoadReducers.js')
+  },
   reduxToolkit: {
-    esModule: true
+    esModule: true,
+    asyncLoadReducers: true
   }
 };
 

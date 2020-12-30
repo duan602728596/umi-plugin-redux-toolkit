@@ -1,5 +1,6 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
+import * as process from 'process';
 import type { IApi } from 'umi';
 import { getAllModels } from './getModels';
 import { getConfig, PluginConfig } from './utils';
@@ -93,12 +94,14 @@ export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`
 
     if (config?.asyncLoadReducers) {
       runtimeTplContent = Mustache.render(runtimeTpl, {
-        importAsyncLoadReducersContext: "import { AsyncLoadReducersContext } from 'umi-plugin-redux-toolkit'",
+        importAsyncLoadReducersContext: "import { AsyncLoadReducersContext } from 'umi-plugin-redux-toolkit/asyncLoadReducers'",
         container: `createElement(
-  AsyncLoadReducersContext.Provider,
-  { value: { replaceReducers } },
-  container
-);`
+      AsyncLoadReducersContext.Provider,
+      {
+        value: { replaceReducers }
+      },
+      container
+    )`
       });
     } else {
       runtimeTplContent = Mustache.render(runtimeTpl, {
@@ -107,7 +110,7 @@ export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`
     }
 
     api.writeTmpFile({
-      path: 'plugin-redux-toolkit/runtime.jsx',
+      path: 'plugin-redux-toolkit/runtime.tsx',
       content: runtimeTplContent
     });
 
