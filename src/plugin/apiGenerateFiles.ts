@@ -1,6 +1,5 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
-import * as process from 'process';
 import type { IApi } from 'umi';
 import { getAllModels } from './getModels';
 import { getConfig, PluginConfig } from './utils';
