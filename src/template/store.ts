@@ -13,7 +13,7 @@ import { mergeIgnoreOptions, toReducers } from './utils';
 import type { IgnoreOptions, RuntimeReduxToolkit } from './types';
 
 /* 创建reducer */
-const processedReducers: ReducersMapObject = toReducers(sliceOptions);
+export const processedReducers: ReducersMapObject = toReducers(sliceOptions);
 const reducer: Reducer = combineReducers(processedReducers);
 
 /* store */
