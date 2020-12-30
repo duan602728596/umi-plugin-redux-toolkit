@@ -39,7 +39,11 @@ export async function getModels(api: IApi, cwd: string, pattern?: string): Promi
       && !file.endsWith('.test.js')
       && !file.endsWith('.test.jsx')
       && !file.endsWith('.test.ts')
-      && !file.endsWith('.test.tsx');
+      && !file.endsWith('.test.tsx')
+      && !file.endsWith('.async.js')
+      && !file.endsWith('.async.jsx')
+      && !file.endsWith('.async.ts')
+      && !file.endsWith('.async.tsx');
   }).map((file: string): string => path.join(cwd, file));
 }
 

@@ -13,7 +13,7 @@ function umiPluginReduxToolkit(api: IApi): void {
   apiGenerateFiles(api);
 
   api.addRuntimePlugin(function(): string {
-    return path.join(paths.absTmpPath!, 'plugin-redux-toolkit/runtime.tsx');
+    return path.join(paths.absTmpPath!, 'plugin-redux-toolkit/runtime.tpl');
   });
 
   api.addRuntimePluginKey(function(): string {

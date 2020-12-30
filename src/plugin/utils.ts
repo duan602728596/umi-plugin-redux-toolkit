@@ -11,6 +11,7 @@ export interface PluginConfig {
   modelName?: string;
   esModule?: boolean;
   ignore?: string | ReadonlyArray<string>;
+  asyncLoadReducers?: boolean;
 }
 
 export function getConfig(api: IApi): PluginConfig | undefined {

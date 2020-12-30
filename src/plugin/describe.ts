@@ -18,7 +18,8 @@ function describe(api: IApi): void {
           ignore: joi.alternatives([   // 忽略的models文件
             joi.array(),
             joi.string()
-          ]).match('one')
+          ]).match('one'),
+          asyncLoadReducers: joi.bool() // 异步导入asyncLoadReducers
         });
       }
     }

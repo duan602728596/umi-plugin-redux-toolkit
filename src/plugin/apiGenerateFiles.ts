@@ -23,6 +23,8 @@ function replaceFileName(filename: string): string {
  */
 function apiGenerateFiles(api: IApi): void {
   async function onGenerateFiles(): Promise<void> {
+    const { utils }: IApi = api;
+    const { Mustache }: typeof utils = utils;
     const config: PluginConfig | undefined = getConfig(api);
 
     /* ============= options ============= */
@@ -86,9 +88,27 @@ export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`
     });
 
     /* ============= 创建runtime ============= */
+    const runtimeTpl: string = await readTemplateFile('runtime.tpl');
+    let runtimeTplContent: string;
+
+    if (config?.asyncLoadReducers) {
+      runtimeTplContent = Mustache.render(runtimeTpl, {
+        importAsyncLoadReducersContext: "import { AsyncLoadReducersContext } from 'umi-plugin-redux-toolkit'",
+        container: `createElement(
+  AsyncLoadReducersContext.Provider,
+  { value: { replaceReducers } },
+  container
+);`
+      });
+    } else {
+      runtimeTplContent = Mustache.render(runtimeTpl, {
+        container: 'container'
+      });
+    }
+
     api.writeTmpFile({
-      path: 'plugin-redux-toolkit/runtime.tsx',
-      content: await readTemplateFile('runtime.tsx')
+      path: 'plugin-redux-toolkit/runtime.jsx',
+      content: runtimeTplContent
     });
 
     /* ============= 创建utils ============= */
