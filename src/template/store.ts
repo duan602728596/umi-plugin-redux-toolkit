@@ -8,12 +8,12 @@ import {
   ConfigureStoreOptions
 } from '@reduxjs/toolkit';
 // @ts-ignore
-import { ignoreOptions, sliceOptions } from './options';
+import { ignoreOptions, sliceOptions, sliceOptionsItem } from './options';
 import { mergeIgnoreOptions, toReducers } from './utils';
 import type { IgnoreOptions, RuntimeReduxToolkit } from './types';
 
 /* 创建reducer */
-export const processedReducers: ReducersMapObject = toReducers(sliceOptions);
+const processedReducers: ReducersMapObject = toReducers(sliceOptions); // 已经格式化完毕的reducers配置
 const reducer: Reducer = combineReducers(processedReducers);
 
 /* store */
@@ -51,7 +51,13 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
   return store;
 }
 
-/* replace reducers */
-export function replaceReducers(reducers: ReducersMapObject): void {
-  store.replaceReducer(combineReducers(reducers));
+/**
+ * 替换reducers
+ * @param { Array<sliceOptionsItem> } asyncSliceOptions: 将要合并的slice配置
+ */
+export function replaceReducers(asyncSliceOptions: Array<sliceOptionsItem>): void {
+  const asyncProcessedReducers: ReducersMapObject = toReducers(asyncSliceOptions); // 已经格式化完毕的，将要合并的reducers配置
+
+  Object.assign(processedReducers, asyncProcessedReducers);
+  store.replaceReducer(combineReducers(processedReducers));
 }

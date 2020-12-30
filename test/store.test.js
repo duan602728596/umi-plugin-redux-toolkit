@@ -1,5 +1,4 @@
 import { storeFactory, replaceReducers } from '../src/template/store';
-import { toReducers } from '../src/template/utils';
 
 test('store', function() {
   const store = storeFactory({
@@ -9,7 +8,7 @@ test('store', function() {
     }
   });
 
-  replaceReducers(toReducers([{
+  replaceReducers([{
     name: 'test_store',
     initialState: { text: 'Hello.' },
     reducers: {
@@ -19,7 +18,7 @@ test('store', function() {
         return state;
       }
     }
-  }]));
+  }]);
 
   store.dispatch({
     type: 'test_store/setText',
