@@ -22,7 +22,7 @@ npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 * singular { boolean } : 目录是否为单数。
 * esModule { boolean } : 使用es6模块的方式引入。
 * ignore { string | Array<string> } : 忽略的model文件。（参考glob的[ignore](https://www.npmjs.com/package/glob#options)配置）
-* asyncLoadReducers { boolean } : 开启异步注入reducers。
+* asyncLoadReducers { boolean } : 开启异步注入reducers的功能。（需要手动挂载在组件上，会比较麻烦一些，所以不太推荐）
 
 ### 如何配置
 
