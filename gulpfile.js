@@ -6,14 +6,17 @@ const plumber = require('gulp-plumber');
 const tsconfig = require('./tsconfig.json');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
-
-const tsBuildConfig = {
-  ...tsconfig.compilerOptions
-};
+const tsBuildConfig = { ...tsconfig.compilerOptions };
 
 if (!isDevelopment) {
   tsBuildConfig.skipLibCheck = true;
 }
+
+const tsBrowserBuildConfig = {
+  ...tsBuildConfig,
+  module: 'es6',
+  target: 'es2015'
+};
 
 // 编译ts plugin
 function tsPluginProject() {
@@ -37,18 +40,14 @@ function tsAsyncLoadReducersProject() {
   const result = gulp.src('src/dynamicReducers/**/*.{ts,tsx}')
     .pipe(changed('dist/dynamicReducers'))
     .pipe(plumber())
-    .pipe(typescript(
-      Object.assign(tsBuildConfig, { module: 'es6' })
-    ));
+    .pipe(typescript(tsBrowserBuildConfig));
 
   return result.js.pipe(gulp.dest('dist/dynamicReducers'));
 }
 
 function tsProdAsyncLoadReducersProject() {
   const result = gulp.src('src/dynamicReducers/**/*.{ts,tsx}')
-    .pipe(typescript(
-      Object.assign(tsBuildConfig, { module: 'es6' })
-    ));
+    .pipe(typescript(tsBrowserBuildConfig));
 
   return result.js.pipe(gulp.dest('dist/dynamicReducers'));
 }
