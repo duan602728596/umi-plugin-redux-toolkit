@@ -22,6 +22,7 @@ npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 * singular { boolean } : 目录是否为单数。
 * esModule { boolean } : 使用es6模块的方式引入。
 * ignore { string | Array<string> } : 忽略的model文件。（参考glob的[ignore](https://www.npmjs.com/package/glob#options)配置）
+* asyncLoadReducers { boolean } : 开启异步注入reducers。
 
 ### 如何配置
 
@@ -71,4 +72,23 @@ export const reduxToolkit = {
   ignoreOptions: {}, // 同上面的ignoreOptions配置，会做合并处理
   warnAfter: 800     // immutableCheck和serializableCheck的检查时间超过32ms会有警告，修改警告时间
 };
+```
+
+## 异步注入reducers
+
+models文件夹中的`*.async.{js,jsx,ts,tsx}`文件会被认为是异步注入的reducers，不会被自动加载。
+配置`asyncLoadReducers: true`开启异步注入reducers功能。
+
+```javascript
+import { dynamicReducers } from 'umi-plugin-redux-toolkit/dynamicReducers';
+import model_0 from './models/model_0';
+import model_1 from './models/model_1';
+
+function Component(props) {
+ return <div />;
+}
+
+export default dynamicReducers([model_0, model_1])(Component); // 多个model传递数组
+// 或
+export default dynamicReducers(model_0)(Component); // 单个model
 ```
