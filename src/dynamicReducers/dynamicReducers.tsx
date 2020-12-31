@@ -7,11 +7,7 @@ interface AsyncLoadReducersReturn {
 }
 
 function formatSliceOptions(sliceOptions: SliceOptionsItem | Array<SliceOptionsItem>): Array<SliceOptionsItem> {
-  if (Object.prototype.toString.call(sliceOptions) === '[object Array]') {
-    return sliceOptions as Array<SliceOptionsItem>;
-  } else {
-    return [sliceOptions] as Array<SliceOptionsItem>;
-  }
+  return Array.isArray(sliceOptions) ? sliceOptions : [sliceOptions];
 }
 
 /**
