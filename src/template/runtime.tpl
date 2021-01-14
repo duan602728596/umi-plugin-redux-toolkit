@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { createElement, ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { ApplyPluginsType } from 'umi';
