@@ -88,7 +88,7 @@ export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`
     });
 
     /* ============= 创建runtime ============= */
-    const runtimeTpl: string = await readTemplateFile('runtime.tpl');
+    const runtimeTpl: string = await readTemplateFile('runtime.tsx.tpl');
     let runtimeTplContent: string;
 
     if (config?.asyncLoadReducers) {
