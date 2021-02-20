@@ -18,7 +18,7 @@ export function rootContainer(container: ReactNode): ReactElement {
 
   const initialState: DeepPartial<any> | undefined = runtimeReduxToolkit?.initialState;     // 初始化的state
   const otherIgnoreOptions: IgnoreOptions | undefined = runtimeReduxToolkit?.ignoreOptions; // 忽略检查的action和paths
-  const warnAfter: number | undefined = runtimeReduxToolkit?.warnAfter;                     // 如果检查时间超过N ms，则打印警告
+  const warnAfter: number | undefined = runtimeReduxToolkit?.warnAfter;                     // 如果检查时间超过Nms，则打印警告
 
   return createElement(
     Provider,
