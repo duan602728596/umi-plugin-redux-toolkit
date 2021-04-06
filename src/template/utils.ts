@@ -7,7 +7,10 @@ import {
 } from '@reduxjs/toolkit';
 import type { IgnoreOptions, SliceOptionsItem } from './types';
 
-/* 合并ignore选项 */
+/**
+ * 合并ignore选项
+ * @param { Array<IgnoreOptions | undefined> } ignoreOptions: 合并ignoredPaths和ignoredActions
+ */
 export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undefined>): IgnoreOptions {
   const ignore: IgnoreOptions = {};
 
@@ -37,12 +40,19 @@ export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undef
   return ignore;
 }
 
-/* 判断是否是slice */
+/**
+ * 判断是否是创建完的slice
+ * @param { SliceOptionsItem } slice: 通过CreateSliceOption创建的slice或者为创建完的slice
+ */
 export function isSlice(slice: SliceOptionsItem): slice is Slice {
   return ('actions' in slice) && ('reducer' in slice);
 }
 
-/* 格式化reducers */
+/**
+ * 格式化reducers
+ * @param { VSCR<any, any> } reducers: 需要格式化的reduces
+ * @param { RegExp } regexp: 命名空间的正则表达式
+ */
 export function formatReducers(reducers: VSCR<any, any>, regexp: RegExp): VSCR<any, any> {
   const newReducers: VSCR<any, any> = {};
 
@@ -55,7 +65,10 @@ export function formatReducers(reducers: VSCR<any, any>, regexp: RegExp): VSCR<a
   return newReducers;
 }
 
-/* 创建reducers */
+/**
+ * 创建reducers
+ * @param { Array<SliceOptionsItem> } sliceOptions: slice或者创建slice的配置
+ */
 export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): ReducersMapObject {
   const result: ReducersMapObject = {};
 
@@ -70,7 +83,7 @@ export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): Reducers
       const options: CreateSliceOptions = { ...item };               // 创建slice的配置
       const regexp: RegExp = new RegExp(`^${ item.name }/`); // 命名空间的判断
 
-      // reduces的key不需要带命名空间，所以需要处理一下，将通过createAction创建的reduces的key处理一下，删除掉命名空间
+      // reduces的key不需要带命名空间，所以需要处理一下。删除掉通过createAction创建的reduces的key的命名空间
       if (options.reducers) {
         options.reducers = formatReducers(options.reducers, regexp);
       }
