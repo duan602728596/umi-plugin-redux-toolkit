@@ -1,4 +1,10 @@
-import { createSlice, Slice, ReducersMapObject, CreateSliceOptions, ValidateSliceCaseReducers } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  Slice,
+  ReducersMapObject,
+  CreateSliceOptions,
+  ValidateSliceCaseReducers as VSCR
+} from '@reduxjs/toolkit';
 import type { IgnoreOptions, SliceOptionsItem } from './types';
 
 /* 合并ignore选项 */
@@ -32,8 +38,8 @@ export function isSlice(slice: SliceOptionsItem): slice is Slice {
 }
 
 /* 格式化reducers */
-export function formatReducers(reducers: ValidateSliceCaseReducers<any, any>, regexp: RegExp): ValidateSliceCaseReducers<any, any> {
-  const newReducers: ValidateSliceCaseReducers<any, any> = {};
+export function formatReducers(reducers: VSCR<any, any>, regexp: RegExp): VSCR<any, any> {
+  const newReducers: VSCR<any, any> = {};
 
   for (const key in reducers) {
     const newKey: string = regexp.test(key) ? key.replace(regexp, '') : key;
