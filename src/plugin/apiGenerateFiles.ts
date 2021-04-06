@@ -42,20 +42,25 @@ function apiGenerateFiles(api: IApi): void {
 
       // es6
       const modelsEsModuleArray: Array<moduleItem> = models.map((item: string, index: number): moduleItem => {
-        const parseResult: path.ParsedPath = path.parse(item);
-        const filename: string = replaceFileName(parseResult.name);
-        const variable: string = `model_${ filename }_${ index }`;
+        const parseResult: path.ParsedPath = path.parse(item);      // 解析文件名
+        const filename: string = replaceFileName(parseResult.name); // 移除特殊字符，文件名转换成变量
+        const variable: string = `model_${ filename }_${ index }`;  // 变量名
 
         return {
           name: variable,
           content: `import ${ variable } from '${ item }';`
         };
       });
+
+      // 模块导入
       const importContent: string = modelsEsModuleArray.map((item: moduleItem): string => item.content).join('\n');
+
+      // 变量
       const variableContent: string = modelsEsModuleArray.length > 0
         ? `[\n${ modelsEsModuleArray.map((item: moduleItem): string => `  ${ item.name }`).join(',\n') }\n]`
         : '[]';
 
+      // 写入文件
       api.writeTmpFile({
         path: 'plugin-redux-toolkit/options.ts',
         content: `${ optionsContent }
@@ -68,10 +73,13 @@ export const sliceOptions: Array<sliceOptionsItem> = ${ variableContent };`
     } else {
       // commonjs
       const modelsModuleRequireArray: Array<string> = models.map((item: string) => `  require('${ item }').default`);
+
+      // 模块导入(commonjs)
       const modelsContent: string = modelsModuleRequireArray.length > 0 ? `[
 ${ modelsModuleRequireArray.join(',\n') }
 ]` : '[]';
 
+      // 写入文件
       api.writeTmpFile({
         path: 'plugin-redux-toolkit/options.ts',
         content: `${ optionsContent }
@@ -97,7 +105,9 @@ export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`
         container: `createElement(
       DynamicReducersContext.Provider,
       {
-        value: { replaceReducers }
+        value: {
+          replaceReducers
+        }
       },
       container
     )`

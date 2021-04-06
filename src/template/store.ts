@@ -28,12 +28,13 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
     const { initialState, ignoreOptions: otherIgnoreOptions, warnAfter }: RuntimeReduxToolkit = runtimeReduxToolkit;
 
     // store的配置
-    const options: ConfigureStoreOptions = {
-      reducer,
-      preloadedState: initialState
-    };
-    const ignore: IgnoreOptions = mergeIgnoreOptions(ignoreOptions, otherIgnoreOptions); // 配置忽略检查的action和paths
-    const defaultMiddlewareOptions: { [key: string]: any } = {                           // getDefaultMiddleware的配置
+    const options: ConfigureStoreOptions = { reducer, preloadedState: initialState };
+
+    // 配置忽略检查的action和paths
+    const ignore: IgnoreOptions = mergeIgnoreOptions(ignoreOptions, otherIgnoreOptions);
+
+    // getDefaultMiddleware的配置
+    const defaultMiddlewareOptions: { [key: string]: any } = {
       immutableCheck: Object.assign({
         warnAfter: warnAfter ?? 800 // See https://redux-toolkit.js.org/api/immutabilityMiddleware#options
       }, ignore),
