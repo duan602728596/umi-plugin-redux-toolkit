@@ -19,7 +19,7 @@ export function rootContainer(container: ReactNode): ReactElement {
   return createElement(
     Provider,
     {
-      store: storeFactory(RuntimeReduxToolkit)
+      store: storeFactory(runtimeReduxToolkit)
     },
     {{{ container }}}
   );
