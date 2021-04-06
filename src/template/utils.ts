@@ -11,6 +11,11 @@ import type { IgnoreOptions, SliceOptionsItem } from './types';
 export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undefined>): IgnoreOptions {
   const ignore: IgnoreOptions = {};
 
+  /**
+   * 合并函数
+   * @param { string } k: 要合并的key
+   * @param { Array<string> } o: key对应的值
+   */
   const merge: (k: string, o: Array<string>) => void = (k: string, o: Array<string>): void => {
     if (!(k in ignore)) {
       ignore[k] = [];
@@ -19,13 +24,13 @@ export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undef
     ignore[k].push(...o);
   };
 
-  for (const item of ignoreOptions) {
-    if (item /* IgnoreOptions | undefined */) {
-      for (const key in item) {
-        if (item[key]?.length) {
-          merge(key, item[key] /* Array<string> */);
-        }
-      }
+  // 合并
+  const filterIgnoreOptions: Array<IgnoreOptions> = ignoreOptions
+    .filter<IgnoreOptions>((o: IgnoreOptions | undefined): o is IgnoreOptions => !o);
+
+  for (const item of filterIgnoreOptions) {
+    for (const key in item) {
+      item[key]?.length && merge(key, item[key]);
     }
   }
 
