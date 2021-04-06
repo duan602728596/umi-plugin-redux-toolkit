@@ -1,4 +1,4 @@
-import * as Joi from '@hapi/joi';
+import type * as Joi from '@hapi/joi';
 import type { ObjectSchema } from '@hapi/joi';
 import type { IApi } from 'umi';
 import { pluginName } from './utils';

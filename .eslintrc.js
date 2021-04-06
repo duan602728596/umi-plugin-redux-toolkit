@@ -280,7 +280,10 @@ module.exports = {
     // import
     'import/no-unresolved': [ // 确保导入的模块可以解析为本地文件系统上的模块
       'error',
-      { commonjs: true }
+      {
+        commonjs: true,
+        ignore: ['umi-plugin-redux-toolkit']
+      }
     ]
   }
 };

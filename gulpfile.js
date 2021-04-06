@@ -61,7 +61,8 @@ function copy() {
 
 // 监听文件变化
 function devWatch() {
-  gulp.watch('src/plugin/**/*.{ts,tsx}', tsProject);
+  gulp.watch('src/plugin/**/*.{ts,tsx}', tsPluginProject);
+  gulp.watch('src/dynamicReducers/**/*.{ts,tsx}', tsAsyncLoadReducersProject);
   gulp.watch('src/template/**/*.*', copy);
 }
 

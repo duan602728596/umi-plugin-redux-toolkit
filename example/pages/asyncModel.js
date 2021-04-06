@@ -6,7 +6,7 @@ import asyncModel, { setAddNumber } from './models/asyncModel.async';
 
 const state = createStructuredSelector({
   number: createSelector(
-    ({ asyncModel }) => asyncModel?.number ?? 13,
+    ({ asyncModel: am }) => am?.number ?? 13,
     (data) => data
   )
 });
