@@ -31,8 +31,7 @@ function apiGenerateFiles(api: IApi): void {
     // options
     const optionsContent: string = await readTemplateFile('options.ts');
     const ignoreOptions: string = config?.ignoreOptions
-      ? JSON.stringify(config.ignoreOptions, null, 2)
-      : '{}';
+      ? JSON.stringify(config.ignoreOptions, null, 2) : '{}';
 
     // models
     const models: Array<string> = await getAllModels(api);
@@ -57,8 +56,7 @@ function apiGenerateFiles(api: IApi): void {
 
       // 变量
       const variableContent: string = modelsEsModuleArray.length > 0
-        ? `[\n${ modelsEsModuleArray.map((item: moduleItem): string => `  ${ item.name }`).join(',\n') }\n]`
-        : '[]';
+        ? `[\n${ modelsEsModuleArray.map((item: moduleItem): string => `  ${ item.name }`).join(',\n') }\n]` : '[]';
 
       // 写入文件
       api.writeTmpFile({

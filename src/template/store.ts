@@ -25,7 +25,11 @@ export let store: Store;
  */
 export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Store {
   if (!store) {
-    const { initialState, ignoreOptions: otherIgnoreOptions, warnAfter }: RuntimeReduxToolkit = runtimeReduxToolkit;
+    const {
+      initialState,                      // 初始化的state
+      ignoreOptions: otherIgnoreOptions, // 忽略检查的action和paths
+      warnAfter                          // 检查时间超过Nms，则打印警告
+    }: RuntimeReduxToolkit = runtimeReduxToolkit;
 
     // store的配置
     const options: ConfigureStoreOptions = { reducer, preloadedState: initialState };
