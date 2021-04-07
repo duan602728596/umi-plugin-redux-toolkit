@@ -29,7 +29,7 @@ export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undef
 
   // 合并
   const filterIgnoreOptions: Array<IgnoreOptions> = ignoreOptions
-    .filter<IgnoreOptions>((o: IgnoreOptions | undefined): o is IgnoreOptions => !o);
+    .filter<IgnoreOptions>((o: IgnoreOptions | undefined): o is IgnoreOptions => o !== undefined && o !== null);
 
   for (const item of filterIgnoreOptions) {
     for (const key in item) {
