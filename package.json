@@ -19,8 +19,6 @@
   "devDependencies": {
     "@babel/core": "^7.13.14",
     "@babel/eslint-parser": "^7.13.14",
-    "@babel/helper-builder-react-jsx": "^7.12.13",
-    "@babel/helper-builder-react-jsx-experimental": "^7.12.11",
     "@babel/preset-react": "^7.13.13",
     "@hapi/joi": "^17.1.1",
     "@reduxjs/toolkit": "^1.5.1",
