@@ -12,14 +12,17 @@ async function readTemplateFile(file: string): Promise<string> {
   return await fs.readFile(path.join(__dirname, '../template', file), { encoding: 'utf8' });
 }
 
-/* 替换文件名 */
+/**
+ * 替换文件名
+ * @param { string } filename: 文件名
+ */
 function replaceFileName(filename: string): string {
   return filename.replace(/[~`!@#$%^&*()-+={}\[\]\\|<>?/,\.]/ig, '_');
 }
 
 /**
  * api.onGenerateFiles
- * @param { IApi } api
+ * @param { IApi } api: umi api方法
  */
 function apiGenerateFiles(api: IApi): void {
   async function onGenerateFiles(): Promise<void> {

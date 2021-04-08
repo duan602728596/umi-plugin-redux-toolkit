@@ -9,7 +9,8 @@ const globPromise: (pattern: string, options?: IOptions) => Promise<Array<string
 
 /**
  * 获取redux的目录名称
- * @param { IApi } api
+ * @param { IApi } api: umi api方法
+ * @return { string }
  */
 export function getModelDir(api: IApi): string {
   const config: PluginConfig | undefined = getConfig(api);
@@ -26,6 +27,7 @@ export function getModelDir(api: IApi): string {
  * @param { IApi } api
  * @param { string } cwd: 目录
  * @param { string | undefined } pattern
+ * @return { Promise<Array<string>> }
  */
 export async function getModels(api: IApi, cwd: string, pattern?: string): Promise<Array<string>> {
   const config: PluginConfig | undefined = getConfig(api);
@@ -49,7 +51,8 @@ export async function getModels(api: IApi, cwd: string, pattern?: string): Promi
 
 /**
  * 获取redux的目录
- * @param { IApi } api
+ * @param { IApi } api: umi api方法
+ * @return { string }
  */
 export function getModelsPath(api: IApi): string {
   return path.join(api.paths.absSrcPath!, getModelDir(api));
@@ -57,7 +60,7 @@ export function getModelsPath(api: IApi): string {
 
 /**
  * 获取所有的redux文件
- * @param { object } api
+ * @param { object } api: umi api方法
  */
 export async function getAllModels(api: IApi): Promise<Array<string>> {
   const srcModelsPath: string = getModelsPath(api);

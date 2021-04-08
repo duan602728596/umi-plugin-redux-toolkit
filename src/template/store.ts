@@ -22,6 +22,7 @@ export let store: Store;
 /**
  * 创建并返回store
  * @param { RuntimeReduxToolkit } runtimeReduxToolkit: 初始化的值
+ * @return { Store }
  */
 export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Store {
   if (!store) {

@@ -3,7 +3,10 @@ import type { ObjectSchema } from '@hapi/joi';
 import type { IApi } from 'umi';
 import { pluginName } from './utils';
 
-/* 配置 */
+/**
+ * 配置
+ * @param { IApi } api: umi api方法
+ */
 function describe(api: IApi): void {
   api.describe({
     id: pluginName,

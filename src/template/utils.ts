@@ -10,6 +10,7 @@ import type { IgnoreOptions, SliceOptionsItem } from './types';
 /**
  * 合并ignore选项
  * @param { Array<IgnoreOptions | undefined> } ignoreOptions: 合并ignoredPaths和ignoredActions
+ * @return { IgnoreOptions }
  */
 export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undefined>): IgnoreOptions {
   const ignore: IgnoreOptions = {};
@@ -68,6 +69,7 @@ export function formatReducers(reducers: VSCR<any, any>, regexp: RegExp): VSCR<a
 /**
  * 创建reducers
  * @param { Array<SliceOptionsItem> } sliceOptions: slice或者创建slice的配置
+ * @return { ReducersMapObject }
  */
 export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): ReducersMapObject {
   const result: ReducersMapObject = {};
