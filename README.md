@@ -2,7 +2,7 @@
 
 [中文文档](README_zhCN.md)
 
-The plug-in of umi3 uses @reduxjs/toolkit.
+The plugin of umi3 uses @reduxjs/toolkit.
 
 ## Install
 
