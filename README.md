@@ -16,7 +16,7 @@ npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 
 * ignoreOptions { object } : Configure ignored options, refer to   
   [https://redux-toolkit.js.org/api/serializabilityMiddleware](https://redux-toolkit.js.org/api/serializabilityMiddleware),   
-  When the object in redux may be created from `new Class`, or other objects that may cause a warning,   
+  When the object in redux may be created from `new Class`, or other non-serializable values,   
   there will be a warning when the action is obtained or called, and this option can be configured to ignore the warning.
   * ignoreOptions.ignoredPaths { Array&lt;string&gt; } : Ignore value.
   * ignoreOptions.ignoredActions  { Array&lt;string&gt; } : Ignored actions.

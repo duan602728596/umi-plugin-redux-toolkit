@@ -14,7 +14,7 @@ npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 
 * ignoreOptions { object } : 配置忽略的选项，参考
   [https://redux-toolkit.js.org/api/serializabilityMiddleware](https://redux-toolkit.js.org/api/serializabilityMiddleware)，
-  当redux内的object可能是从`new Class`创建时，或者其他可能会导致警告的对象时，获取或调用action时会有警告，可以配置该选项忽略警告。
+  当redux内的object可能是从`new Class`创建时，或者其他不可序列化的值，获取或调用action时会有警告，可以配置该选项忽略警告。
   * ignoreOptions.ignoredPaths { Array&lt;string&gt; }: 忽略取值。
   * ignoreOptions.ignoredActions  { Array&lt;string&gt; }: 忽略的actions。
 
