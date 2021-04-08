@@ -1,8 +1,10 @@
 # umi-plugin-redux-toolkit
 
-umi3的插件，使用@reduxjs/toolkit。
+[中文文档](README_zhCN.md)
 
-## 安装
+The plug-in of umi3 uses @reduxjs/toolkit.
+
+## Install
 
 ```
 yarn add umi-plugin-redux-toolkit @reduxjs/toolkit
@@ -10,41 +12,43 @@ yarn add umi-plugin-redux-toolkit @reduxjs/toolkit
 npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 ```
 
-## 配置
+## Configuration
 
-* ignoreOptions { object } : 配置忽略的选项，参考
-  [https://redux-toolkit.js.org/api/serializabilityMiddleware](https://redux-toolkit.js.org/api/serializabilityMiddleware)，
-  当redux内的object可能是从`new Class`创建时，获取或调用action时会有警告，可以配置该选项忽略警告。
-  * ignoreOptions.ignoredPaths { Array&lt;string&gt; }: 忽略的actions。
-  * ignoreOptions.ignoredActions  { Array&lt;string&gt; }: 忽略取值。
+* ignoreOptions { object } : Configure ignored options, refer to   
+  [https://redux-toolkit.js.org/api/serializabilityMiddleware](https://redux-toolkit.js.org/api/serializabilityMiddleware),   
+  When the object in redux may be created from `new Class`, or other objects that may cause a warning,   
+  there will be a warning when the action is obtained or called, and this option can be configured to ignore the warning.
+  * ignoreOptions.ignoredPaths { Array&lt;string&gt; } : Ignore value.
+  * ignoreOptions.ignoredActions  { Array&lt;string&gt; } : Ignored actions.
 
-* modelName { string } : 自定义model文件夹的名称，配置后忽略singular配置。
-* singular { boolean } : 目录是否为单数。
-* esModule { boolean } : 使用es6模块的方式引入。
-* ignore { string | Array<string> } : 忽略的model文件。（参考glob的[ignore](https://www.npmjs.com/package/glob#options)配置）
-* asyncLoadReducers { boolean } : 开启异步注入reducers的功能。（需要手动挂载在组件上，会比较麻烦一些，所以不太推荐）
+* modelName { string } : Customize the name of the model folder and ignore the singular configuration after configuration.
+* singular { boolean } : Whether the directory is singular.
+* esModule { boolean } : Import using the es6 module method.
+* ignore { string | Array<string> } : Ignored model files. (Refer to the [ignore](https://www.npmjs.com/package/glob#options) configuration of glob)
+* asyncLoadReducers { boolean } : Enable the function of asynchronously injecting reducers.   
+  (Need to manually mount on the component, it will be more troublesome, so it is not recommended).
 
-### 如何配置
+### How to configure
 
 ```javascript
 // .umirc.js or umi.config.js
 import { defineConfig } from 'umi';
 
 export default {
-  // umi-plugin-redux-toolkit的配置
+  // Configuration of umi-plugin-redux-toolkit
   reduxToolkit: {
     esModule: true
   }
 };
 ```
 
-## 如何使用
+## How to use
 
-创建`models`文件夹，在文件夹下创建ts或js文件，导出通过createSlice创建的slice，或createSlice的配置。   
-导出slice[参考](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/add.js)，
-导出createSlice的配置[参考](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/index.js)。   
+Create the `models` folder, create a ts or js file under the folder, and export the slice created by createSlice, or the configuration of createSlice.   
+Export slice[Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/add.js),
+Export the configuration of createSlice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/index.js).   
 
-导出createSlice的配置时，如果reduces的key是通过createAction创建的，会自动去掉命名空间。例如：
+When exporting the configuration of createSlice, if the reduce key is created by createAction, the namespace will be automatically removed. E.g:
 
 ```javascript
 import { createAction } from '@redux/toolkit';
@@ -54,7 +58,7 @@ const action = createAction('index/action');
 export default {
   name: 'index',
   reducers: {
-    // 会自动将 index/action 变成 action
+    // will automatically change index/action into action
     [action](state, action) {
       return state;
     }
@@ -62,22 +66,22 @@ export default {
 };
 ```
 
-## 初始值
+## Initial value
 
-在app.js内导出
+Export in app.js
 
 ```
 export const reduxToolkit = {
-  initialState: {},  // 初始化redux的值
-  ignoreOptions: {}, // 同上面的ignoreOptions配置，会做合并处理
-  warnAfter: 800     // immutableCheck和serializableCheck的检查时间超过32ms会有警告，修改警告时间
+  initialState: {},  // Initialize the value of redux
+  ignoreOptions: {}, // Same as the ignoreOptions configuration above, it will be merged
+  warnAfter: 800     // If the check time of immutableCheck and serializableCheck exceeds 32ms, there will be a warning. Modify the warning time
 };
 ```
 
-## 异步注入reducers
+## Asynchronous injection of reducers
 
-models文件夹中的`*.async.{js,jsx,ts,tsx}`文件会被认为是异步注入的reducers，不会被自动加载。
-配置`asyncLoadReducers: true`开启异步注入reducers功能。
+The `*.async.{js,jsx,ts,tsx}` files in the models folder will be considered as asynchronously injected reducers and will not be automatically loaded.   
+Configure `asyncLoadReducers: true` to enable asynchronous injection of reducers.
 
 ```javascript
 import { dynamicReducers } from 'umi-plugin-redux-toolkit/dynamicReducers';
@@ -88,7 +92,7 @@ function Component(props) {
  return <div />;
 }
 
-export default dynamicReducers([model_0, model_1])(Component); // 多个model传递数组
+export default dynamicReducers([model_0, model_1])(Component); // Multiple models pass array
 // 或
-export default dynamicReducers(model_0)(Component); // 单个model
+export default dynamicReducers(model_0)(Component); // Single model
 ```
