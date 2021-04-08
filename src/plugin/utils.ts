@@ -1,5 +1,5 @@
 import type { IApi } from 'umi';
-import { IgnoreOptions } from '../template/types';
+import type { IgnoreOptions } from '../template/types';
 
 /* 插件注册名称 */
 export const pluginName: string = 'reduxToolkit';
