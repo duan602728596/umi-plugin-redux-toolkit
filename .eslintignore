@@ -6,3 +6,4 @@ dist
 lib
 example/.umi
 example/.umi-test
+.husky
