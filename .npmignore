@@ -15,6 +15,7 @@ yarn-error.log
 .idea
 .DS_Store
 package.json.lerna_backup
+.husky
 
 example
 src
