@@ -14,5 +14,5 @@ yarn-error.log
 dist
 lib
 .DS_Store
-example/.umi
-example/.umi-test
+example/**/.umi
+example/**/.umi-test
