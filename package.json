@@ -1,6 +1,6 @@
 {
   "name": "umi-plugin-redux-toolkit",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "homepage": "https://github.com/duan602728596/umi-plugin-redux-toolkit",
   "main": "dist/plugin/cjs.js",
