@@ -72,6 +72,14 @@ export const reduxToolkit = {
   ignoreOptions: {}, // 同上面的ignoreOptions配置，会做合并处理
   warnAfter: 800     // immutableCheck和serializableCheck的检查时间超过32ms会有警告，修改警告时间
 };
+
+// or
+
+export function reduxToolkit() {
+  initialState: () => ({}), // 也可以是一个函数来初始化redux的值
+  ignoreOptions: {},        // 同上面的ignoreOptions配置，会做合并处理
+  warnAfter: 800            // immutableCheck和serializableCheck的检查时间超过32ms会有警告，修改警告时间
+}
 ```
 
 ## 异步注入reducers

@@ -76,6 +76,14 @@ export const reduxToolkit = {
   ignoreOptions: {}, // Same as the ignoreOptions configuration above, it will be merged
   warnAfter: 800     // If the check time of immutableCheck and serializableCheck exceeds 32ms, there will be a warning. Modify the warning time
 };
+
+// or
+
+export function reduxToolkit() {
+  initialState: () => ({}), // It can also be a function to initialize the value of redux
+  ignoreOptions: {},        // Same as the ignoreOptions configuration above, it will be merged
+  warnAfter: 800            // If the check time of immutableCheck and serializableCheck exceeds 32ms, there will be a warning. Modify the warning time
+}
 ```
 
 ## Asynchronous injection of reducers
