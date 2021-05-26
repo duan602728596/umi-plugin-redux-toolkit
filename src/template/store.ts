@@ -33,7 +33,10 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
     }: RuntimeReduxToolkit = runtimeReduxToolkit;
 
     // store的配置
-    const options: ConfigureStoreOptions = { reducer, preloadedState: initialState };
+    const options: ConfigureStoreOptions = {
+      reducer,
+      preloadedState: typeof initialState === 'function' ? initialState() : initialState
+    };
 
     // 配置忽略检查的action和paths
     const ignore: IgnoreOptions = mergeIgnoreOptions(ignoreOptions, otherIgnoreOptions);

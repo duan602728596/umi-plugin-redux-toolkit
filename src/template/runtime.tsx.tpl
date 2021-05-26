@@ -6,15 +6,16 @@ import type { DeepPartial } from '@reduxjs/toolkit';
 import { storeFactory, replaceReducers } from './store';
 // @ts-ignore
 import { plugin } from '../core/umiExports';
-import type { IgnoreOptions, RuntimeReduxToolkit } from './types';
+import type { IgnoreOptions, RuntimeReduxToolkit, RuntimeReduxToolkitApply } from './types';
 
 /* rootContainer */
 export function rootContainer(container: ReactNode): ReactElement {
-  const runtimeReduxToolkit: RuntimeReduxToolkit = plugin.applyPlugins({
+  const runtimeReduxToolkitApply: RuntimeReduxToolkitApply = plugin.applyPlugins({
     key: 'reduxToolkit',
-    type: ApplyPluginsType.modify,
-    initialValue: {}
+    type: ApplyPluginsType.modify
   });
+  const runtimeReduxToolkit: RuntimeReduxToolkit = typeof runtimeReduxToolkitApply === 'function'
+    ? runtimeReduxToolkitApply() : runtimeReduxToolkitApply;
 
   return createElement(
     Provider,
