@@ -104,3 +104,11 @@ export default dynamicReducers([model_0, model_1])(Component); // Multiple model
 // 或
 export default dynamicReducers(model_0)(Component); // Single model
 ```
+
+## Get the store object
+
+You can get the store object in the following way:
+
+```javascript
+import { store } from '@@/plugin-redux-toolkit/store';
+```

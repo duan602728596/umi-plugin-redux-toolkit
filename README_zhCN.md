@@ -100,3 +100,11 @@ export default dynamicReducers([model_0, model_1])(Component); // 多个model传
 // 或
 export default dynamicReducers(model_0)(Component); // 单个model
 ```
+
+## 获取store
+
+你可以使用如下的方式获取store：
+
+```javascript
+import { store } from '@@/plugin-redux-toolkit/store';
+```
