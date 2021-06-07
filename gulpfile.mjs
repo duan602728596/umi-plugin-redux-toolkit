@@ -1,9 +1,13 @@
-const process = require('process');
-const gulp = require('gulp');
-const typescript = require('gulp-typescript');
-const changed = require('gulp-changed');
-const plumber = require('gulp-plumber');
-const tsconfig = require('./tsconfig.json');
+import process from 'process';
+import path from 'path';
+import gulp from 'gulp';
+import typescript from 'gulp-typescript';
+import changed from 'gulp-changed';
+import plumber from 'gulp-plumber';
+import { metaHelper, requireJson } from '@sweet-milktea/utils';
+
+const { __dirname } = metaHelper(import.meta.url);
+const tsconfig = await requireJson(path.join(__dirname, 'tsconfig.json'));
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 const tsBuildConfig = { ...tsconfig.compilerOptions };
@@ -66,8 +70,6 @@ function devWatch() {
   gulp.watch('src/template/**/*.*', copy);
 }
 
-if (isDevelopment) {
-  exports.default = gulp.series(gulp.parallel(tsPluginProject, tsAsyncLoadReducersProject, copy), devWatch);
-} else {
-  exports.default = gulp.parallel(tsProdPluginProject, tsProdAsyncLoadReducersProject, copy);
-}
+export default isDevelopment
+  ? gulp.series(gulp.parallel(tsPluginProject, tsAsyncLoadReducersProject, copy), devWatch)
+  : gulp.parallel(tsProdPluginProject, tsProdAsyncLoadReducersProject, copy);

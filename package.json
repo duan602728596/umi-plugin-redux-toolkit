@@ -22,6 +22,7 @@
     "@babel/preset-react": "^7.13.13",
     "@hapi/joi": "^17",
     "@reduxjs/toolkit": "^1.6.0-rc.1",
+    "@sweet-milktea/utils": "^3.0.0",
     "@types/glob": "^7",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
