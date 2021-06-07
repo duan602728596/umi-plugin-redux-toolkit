@@ -17,7 +17,7 @@ async function readTemplateFile(file: string): Promise<string> {
  * @param { string } filename: 文件名
  */
 function replaceFileName(filename: string): string {
-  return filename.replace(/[~`!@#$%^&*()-+={}\[\]\\|<>?/,\.]/ig, '_');
+  return filename.replace(/[~`!@#$%^&*()\-+={}\[\]\\|<>?/,\.]/ig, '_');
 }
 
 /**
