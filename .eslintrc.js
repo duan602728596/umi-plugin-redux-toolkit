@@ -96,7 +96,10 @@ module.exports = {
       parserOptions: {
         requireConfigFile: false,
         babelOptions: {
-          presets: ['@babel/preset-react']
+          presets: [[
+            '@sweet-milktea/babel-preset-sweet',
+            { env: { ecmascript: true } }
+          ]]
         }
       }
     }
