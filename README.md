@@ -45,18 +45,37 @@ export default {
 ## How to use
 
 Create the `models` folder, create a ts or js file under the folder, and export the slice created by createSlice, or the configuration of createSlice.   
-Export slice[Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/add.js),
+Export slice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/add.js),
 Export the configuration of createSlice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/index.js).   
+
+```javascript
+import { createSlice } from '@redux/toolkit';
+
+const slice = createSlice({
+  name: 'sliceName',
+  initialState: { value: 0 },
+  reducers: {
+    addValue(state, action) {
+      state.value++;
+    }
+  }
+});
+
+const { addValue } = slice.actions;
+
+export default slice;
+```
 
 When exporting the configuration of createSlice, if the reduce key is created by createAction, the namespace will be automatically removed. E.g:
 
 ```javascript
 import { createAction } from '@redux/toolkit';
 
-const action = createAction('index/action');
+const action = createAction('sliceName/action');
 
 export default {
-  name: 'index',
+  name: 'sliceName',
+  initialState: { value: 0 },
   reducers: {
     // will automatically change index/action into action
     [action](state, action) {
