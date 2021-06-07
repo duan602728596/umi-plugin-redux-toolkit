@@ -8,7 +8,10 @@ import { storeFactory, replaceReducers } from './store';
 import { plugin } from '../core/umiExports';
 import type { IgnoreOptions, RuntimeReduxToolkit, RuntimeReduxToolkitApply } from './types';
 
-/* rootContainer */
+/**
+ * rootContainer
+ * @param { ReactNode } container: 组件
+ */
 export function rootContainer(container: ReactNode): ReactElement {
   const runtimeReduxToolkitApply: RuntimeReduxToolkitApply = plugin.applyPlugins({
     key: 'reduxToolkit',
