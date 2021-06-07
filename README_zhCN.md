@@ -44,17 +44,36 @@ export default {
 导出slice[参考](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/add.js)，
 导出createSlice的配置[参考](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/index.js)。   
 
+```javascript
+import { createSlice } from '@redux/toolkit';
+
+const slice = createSlice({
+  name: 'sliceName',
+  initialState: { value: 0 },
+  reducers: {
+    addValue(state, action) {
+      state.value++;
+    }
+  }
+});
+
+const { addValue } = slice.actions;
+
+export default slice;
+```
+
 导出createSlice的配置时，如果reduces的key是通过createAction创建的，会自动去掉命名空间。例如：
 
 ```javascript
 import { createAction } from '@redux/toolkit';
 
-const action = createAction('index/action');
+const action = createAction('sliceName/action');
 
 export default {
-  name: 'index',
+  name: 'sliceName',
+  initialState: { value: 0 },
   reducers: {
-    // 会自动将 index/action 变成 action
+    // will automatically change index/action into action
     [action](state, action) {
       return state;
     }
