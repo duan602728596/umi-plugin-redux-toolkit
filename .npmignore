@@ -23,6 +23,7 @@ test
 .editorconfig
 .eslintignore
 .eslintrc.js
+.eslintrc.cjs
 .gitignore
 .npmignore
 gulpfile.js
