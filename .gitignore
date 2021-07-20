@@ -6,6 +6,10 @@ package-lock.json
 # yarn
 yarn.lock
 yarn-error.log
+.yarnrc
+.yarn/*
+!.yarn/releases
+.pnp.js
 
 # webstorm
 .idea

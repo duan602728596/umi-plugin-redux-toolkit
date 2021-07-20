@@ -26,6 +26,9 @@ test
 .eslintrc.cjs
 .gitignore
 .npmignore
+.npmrc
+.yarnrc.yml
+
 gulpfile.js
 gulpfile.mjs
 tsconfig.json
