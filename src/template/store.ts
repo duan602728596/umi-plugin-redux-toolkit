@@ -1,16 +1,16 @@
 import {
   configureStore,
-  getDefaultMiddleware,
   combineReducers,
   ReducersMapObject,
   Reducer,
   Store,
   ConfigureStoreOptions
 } from '@reduxjs/toolkit';
+import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 // @ts-ignore
 import { ignoreOptions, sliceOptions, SliceOptionsItem } from './options';
 import { mergeIgnoreOptions, toReducers } from './utils';
-import type { IgnoreOptions, RuntimeReduxToolkit } from './types';
+import type { IgnoreOptions, RuntimeReduxToolkit, GetDefaultMiddlewareOptions, MiddlewareCbReturn } from './types';
 
 /* 创建reducer */
 const processedReducers: ReducersMapObject = toReducers(sliceOptions); // 已经格式化完毕的reducers配置
@@ -42,7 +42,7 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
     const ignore: IgnoreOptions = mergeIgnoreOptions(ignoreOptions, otherIgnoreOptions);
 
     // getDefaultMiddleware的配置
-    const defaultMiddlewareOptions: { [key: string]: any } = {
+    const defaultMiddlewareOptions: GetDefaultMiddlewareOptions = {
       immutableCheck: Object.assign({
         warnAfter: warnAfter ?? 800 // See https://redux-toolkit.js.org/api/immutabilityMiddleware#options
       }, ignore),
@@ -51,7 +51,10 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
       }, ignore)
     };
 
-    options.middleware = getDefaultMiddleware(defaultMiddlewareOptions);
+    // 中间件
+    options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): MiddlewareCbReturn {
+      return getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
+    };
 
     /* 合并store */
     store = configureStore(options);

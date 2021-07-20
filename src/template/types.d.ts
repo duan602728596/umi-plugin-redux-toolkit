@@ -1,4 +1,13 @@
-import type { CreateSliceOptions, Slice, DeepPartial } from '@reduxjs/toolkit';
+import type { Middleware } from 'redux';
+import type {
+  CreateSliceOptions,
+  Slice,
+  DeepPartial,
+  ImmutableStateInvariantMiddlewareOptions,
+  SerializableStateInvariantMiddlewareOptions,
+  MiddlewareArray
+} from '@reduxjs/toolkit';
+import type { ThunkMiddlewareFor } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 
 export interface IgnoreOptions {
   ignoredPaths?: Array<string>;
@@ -14,3 +23,19 @@ export interface RuntimeReduxToolkit {
 }
 
 export type RuntimeReduxToolkitApply = RuntimeReduxToolkit | (() => RuntimeReduxToolkit);
+
+// getDefaultMiddleware的类型，无法从@reduxjs/toolkit中导出
+interface ThunkOptions<E = any> {
+  extraArgument: E;
+}
+
+export interface GetDefaultMiddlewareOptions {
+  thunk?: boolean | ThunkOptions;
+  immutableCheck?: boolean | ImmutableStateInvariantMiddlewareOptions;
+  serializableCheck?: boolean | SerializableStateInvariantMiddlewareOptions;
+}
+
+export type MiddlewareCbReturn = MiddlewareArray<
+  Middleware<{}, any>
+  | ThunkMiddlewareFor<any, GetDefaultMiddlewareOptions>
+>;
