@@ -21,6 +21,44 @@ function replaceFileName(filename: string): string {
 }
 
 /**
+ * 配置为es模块时options的content
+ * @param { string } optionsContent: options.ts template
+ * @param { string } importContent: 模块导入
+ * @param { string } ignoreOptions: 忽略
+ * @param { string } variableContent: 变量
+ */
+function esModuleOptionsContent({ optionsContent, importContent, ignoreOptions, variableContent }: {
+  optionsContent: string;
+  importContent: string;
+  ignoreOptions: string;
+  variableContent: string;
+}): string {
+  return `${ optionsContent }
+
+${ importContent }
+
+export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
+export const sliceOptions: Array<sliceOptionsItem> = ${ variableContent };`;
+}
+
+/**
+ * 配置为commonjs模块时options的content
+ * @param { string } optionsContent: options.ts template
+ * @param { string } modelsContent: commonjs模块
+ * @param { string } ignoreOptions: 忽略
+ */
+function commonjsOptionsContent({ optionsContent, ignoreOptions, modelsContent }: {
+  optionsContent: string;
+  modelsContent: string;
+  ignoreOptions: string;
+}): string {
+  return `${ optionsContent }
+
+export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
+export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`;
+}
+
+/**
  * api.onGenerateFiles
  * @param { IApi } api: umi api方法
  */
@@ -64,29 +102,29 @@ function apiGenerateFiles(api: IApi): void {
       // 写入文件
       api.writeTmpFile({
         path: 'plugin-redux-toolkit/options.ts',
-        content: `${ optionsContent }
-
-${ importContent }
-
-export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
-export const sliceOptions: Array<sliceOptionsItem> = ${ variableContent };`
+        content: esModuleOptionsContent({
+          optionsContent,
+          importContent,
+          ignoreOptions,
+          variableContent
+        })
       });
     } else {
       // commonjs
       const modelsModuleRequireArray: Array<string> = models.map((item: string) => `  require('${ item }').default`);
 
       // 模块导入(commonjs)
-      const modelsContent: string = modelsModuleRequireArray.length > 0 ? `[
-${ modelsModuleRequireArray.join(',\n') }
-]` : '[]';
+      const modelsContent: string = modelsModuleRequireArray.length > 0
+        ? `[\n${ modelsModuleRequireArray.join(',\n') }\n]` : '[]';
 
       // 写入文件
       api.writeTmpFile({
         path: 'plugin-redux-toolkit/options.ts',
-        content: `${ optionsContent }
-
-export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
-export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`
+        content: commonjsOptionsContent({
+          optionsContent,
+          ignoreOptions,
+          modelsContent
+        })
       });
     }
 
