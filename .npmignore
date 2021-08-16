@@ -24,6 +24,7 @@ test
 .eslintignore
 .eslintrc.js
 .eslintrc.cjs
+.gitattributes
 .gitignore
 .npmignore
 .npmrc
