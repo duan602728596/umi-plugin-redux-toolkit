@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
 import type { IApi } from 'umi';
-import { getAllModels } from '../getModels';
+import { getAllModels } from './getModels';
 import { getConfig, PluginConfig } from '../utils';
 import { esModuleOptionsContent, commonjsOptionsContent } from './getContent';
 

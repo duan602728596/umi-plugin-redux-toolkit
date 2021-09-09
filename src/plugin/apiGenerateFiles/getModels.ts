@@ -2,7 +2,7 @@ import { promisify } from 'util';
 import * as path from 'path';
 import { utils, IApi } from 'umi';
 import type { IOptions } from 'glob';
-import { getConfig, PluginConfig } from './utils';
+import { getConfig, PluginConfig } from '../utils';
 
 const { lodash: _, glob }: typeof utils = utils;
 const globPromise: (pattern: string, options?: IOptions) => Promise<Array<string>> = promisify(glob);
@@ -31,21 +31,16 @@ export function getModelDir(api: IApi): string {
  */
 export async function getModels(api: IApi, cwd: string, pattern?: string): Promise<Array<string>> {
   const config: PluginConfig | undefined = getConfig(api);
-  const files: Array<string> = await globPromise(pattern ?? '**/*.{ts,tsx,js,jsx}', {
+  const files: Array<string> = await globPromise(pattern ?? '**/*.{ts,tsx,js,jsx,mjs,cjs}', {
     cwd,
     ignore: config?.ignore
   });
 
   return files.filter((file: string): boolean => {
-    return !file.endsWith('.d.ts')
-      && !file.endsWith('.test.js')
-      && !file.endsWith('.test.jsx')
-      && !file.endsWith('.test.ts')
-      && !file.endsWith('.test.tsx')
-      && !file.endsWith('.async.js')
-      && !file.endsWith('.async.jsx')
-      && !file.endsWith('.async.ts')
-      && !file.endsWith('.async.tsx');
+    return !(
+      /\.d\.tsx?$/i.test(file) // 忽略类型文件
+      || /\.(tests?|async)\.(jsx?|tsx?|mjs|cjs)$/i.test(file) // test为测试文件，async为异步加载的文件
+    );
   }).map((file: string): string => path.join(cwd, file).replace(/\\/g, '/'));
 }
 
@@ -67,6 +62,6 @@ export async function getAllModels(api: IApi): Promise<Array<string>> {
 
   return _.uniq([
     ...await getModels(api, srcModelsPath),
-    ...await getModels(api, api.paths.absPagesPath!, `**/${ getModelDir(api) }/**/*.{ts,tsx,js,jsx}`)
+    ...await getModels(api, api.paths.absPagesPath!, `**/${ getModelDir(api) }/**/*.{ts,tsx,js,jsx,mjs,cjs}`)
   ]);
 }
