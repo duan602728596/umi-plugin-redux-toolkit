@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { utils, IApi } from 'umi';
 import describe from './describe';
-import apiGenerateFiles from './apiGenerateFiles';
+import apiGenerateFiles from './apiGenerateFiles/apiGenerateFiles';
 import { pluginName } from './utils';
 
 const { lodash: _ }: typeof utils = utils;

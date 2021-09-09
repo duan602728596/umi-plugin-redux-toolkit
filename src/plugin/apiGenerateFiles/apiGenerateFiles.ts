@@ -1,15 +1,16 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
 import type { IApi } from 'umi';
-import { getAllModels } from './getModels';
-import { getConfig, PluginConfig } from './utils';
+import { getAllModels } from '../getModels';
+import { getConfig, PluginConfig } from '../utils';
+import { esModuleOptionsContent, commonjsOptionsContent } from './getContent';
 
 /**
  * 读取文件
  * @param { string } file
  */
 async function readTemplateFile(file: string): Promise<string> {
-  return await fs.readFile(path.join(__dirname, '../template', file), { encoding: 'utf8' });
+  return await fs.readFile(path.join(__dirname, '../../template', file), { encoding: 'utf8' });
 }
 
 /**
@@ -18,44 +19,6 @@ async function readTemplateFile(file: string): Promise<string> {
  */
 function replaceFileName(filename: string): string {
   return filename.replace(/[~`!@#$%^&*()\-+={}\[\]\\|<>?/,\.]/ig, '_');
-}
-
-/**
- * 配置为es模块时options的content
- * @param { string } optionsContent: options.ts template
- * @param { string } importContent: 模块导入
- * @param { string } ignoreOptions: 忽略
- * @param { string } variableContent: 变量
- */
-function esModuleOptionsContent({ optionsContent, importContent, ignoreOptions, variableContent }: {
-  optionsContent: string;
-  importContent: string;
-  ignoreOptions: string;
-  variableContent: string;
-}): string {
-  return `${ optionsContent }
-
-${ importContent }
-
-export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
-export const sliceOptions: Array<sliceOptionsItem> = ${ variableContent };`;
-}
-
-/**
- * 配置为commonjs模块时options的content
- * @param { string } optionsContent: options.ts template
- * @param { string } modelsContent: commonjs模块
- * @param { string } ignoreOptions: 忽略
- */
-function commonjsOptionsContent({ optionsContent, ignoreOptions, modelsContent }: {
-  optionsContent: string;
-  modelsContent: string;
-  ignoreOptions: string;
-}): string {
-  return `${ optionsContent }
-
-export const ignoreOptions: IgnoreOptions = ${ ignoreOptions };
-export const sliceOptions: Array<sliceOptionsItem> = ${ modelsContent };`;
 }
 
 /**
