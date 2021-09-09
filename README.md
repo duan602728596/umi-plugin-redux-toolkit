@@ -45,8 +45,8 @@ export default {
 ## How to use
 
 Create the `models` folder, create a ts or js file under the folder, and export the slice created by createSlice, or the configuration of createSlice.   
-Export slice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/add.js),
-Export the configuration of createSlice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/pages/models/index.js).   
+Export slice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/src/pages/models/add.js),
+Export the configuration of createSlice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/src/pages/models/index.js).   
 
 ```javascript
 import { createSlice } from '@redux/toolkit';
