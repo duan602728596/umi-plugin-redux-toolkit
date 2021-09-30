@@ -24,15 +24,9 @@ export interface RuntimeReduxToolkit {
 
 export type RuntimeReduxToolkitApply = RuntimeReduxToolkit | (() => RuntimeReduxToolkit);
 
-// getDefaultMiddleware的类型，无法从@reduxjs/toolkit中导出
-interface ThunkOptions<E = any> {
-  extraArgument: E;
-}
-
 export interface GetDefaultMiddlewareOptions {
-  thunk?: boolean | ThunkOptions;
-  immutableCheck?: boolean | ImmutableStateInvariantMiddlewareOptions;
-  serializableCheck?: boolean | SerializableStateInvariantMiddlewareOptions;
+  immutableCheck?: ImmutableStateInvariantMiddlewareOptions;
+  serializableCheck?: SerializableStateInvariantMiddlewareOptions;
 }
 
 export type MiddlewareCbReturn = MiddlewareArray<
