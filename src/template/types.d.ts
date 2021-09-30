@@ -2,10 +2,12 @@ import type { Middleware } from 'redux';
 import type {
   CreateSliceOptions,
   Slice,
+  SliceCaseReducers,
   DeepPartial,
   ImmutableStateInvariantMiddlewareOptions,
   SerializableStateInvariantMiddlewareOptions,
-  MiddlewareArray
+  MiddlewareArray,
+  ValidateSliceCaseReducers
 } from '@reduxjs/toolkit';
 import type { ThunkMiddlewareFor } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 
@@ -33,3 +35,5 @@ export type MiddlewareCbReturn = MiddlewareArray<
   Middleware<{}, any>
   | ThunkMiddlewareFor<any, GetDefaultMiddlewareOptions>
 >;
+
+export type SliceReducers = ValidateSliceCaseReducers<any, SliceCaseReducers<any>>;

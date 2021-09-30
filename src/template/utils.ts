@@ -1,11 +1,5 @@
-import {
-  createSlice,
-  Slice,
-  ReducersMapObject,
-  CreateSliceOptions,
-  ValidateSliceCaseReducers as VSCR
-} from '@reduxjs/toolkit';
-import type { IgnoreOptions, SliceOptionsItem } from './types';
+import { createSlice, Slice, ReducersMapObject, CreateSliceOptions } from '@reduxjs/toolkit';
+import type { IgnoreOptions, SliceOptionsItem, SliceReducers } from './types';
 
 /**
  * 合并ignore选项
@@ -51,11 +45,11 @@ export function isSlice(slice: SliceOptionsItem): slice is Slice {
 
 /**
  * 格式化reducers
- * @param { VSCR<any, any> } reducers: 需要格式化的reduces
+ * @param { SliceReducers } reducers: 需要格式化的reduces
  * @param { RegExp } regexp: 命名空间的正则表达式
  */
-export function formatReducers(reducers: VSCR<any, any>, regexp: RegExp): VSCR<any, any> {
-  const newReducers: VSCR<any, any> = {};
+export function formatReducers(reducers: SliceReducers, regexp: RegExp): SliceReducers {
+  const newReducers: SliceReducers = {};
 
   for (const key in reducers) {
     const newKey: string = regexp.test(key) ? key.replace(regexp, '') : key;
