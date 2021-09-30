@@ -2,25 +2,31 @@ import { createElement, useMemo, useContext, ReactElement, FunctionComponent, Cl
 import DynamicReducersContext, { DynamicReducersContextType } from './DynamicReducersContext';
 import type { SliceOptionsItem } from '../template/types';
 
-interface AsyncLoadReducersReturn {
-  (Module: FunctionComponent | ClassicComponentClass): FunctionComponent<any>;
+interface DefaultProps {
+  [key: string]: any;
 }
+
+interface AsyncLoadReducersComponent<T> {
+  (Module: FunctionComponent | ClassicComponentClass): FunctionComponent<T>;
+}
+
+type SliceOptions = SliceOptionsItem | Array<SliceOptionsItem>;
 
 /**
  * 将slice格式化成数组
- * @param { SliceOptionsItem | Array<SliceOptionsItem> } sliceOptions: slice或创建slice的配置
+ * @param { SliceOptions } sliceOptions: slice或创建slice的配置
  * @return { Array<SliceOptionsItem> }
  */
-function formatSliceOptions(sliceOptions: SliceOptionsItem | Array<SliceOptionsItem>): Array<SliceOptionsItem> {
+function formatSliceOptions(sliceOptions: SliceOptions): Array<SliceOptionsItem> {
   return Array.isArray(sliceOptions) ? sliceOptions : [sliceOptions];
 }
 
 /**
  * 异步注入reducer
- * @param { SliceOptionsItem | Array<SliceOptionsItem> } sliceOptions
- * @return { AsyncLoadReducersReturn }
+ * @param { SliceOptions } sliceOptions
+ * @return { AsyncLoadReducersComponent }
  */
-function dynamicReducers(sliceOptions: SliceOptionsItem | Array<SliceOptionsItem>): AsyncLoadReducersReturn {
+function dynamicReducers<T = DefaultProps>(sliceOptions: SliceOptions): AsyncLoadReducersComponent<T> {
   let injectModels: boolean = true; // 是否需要注入
 
   /**
@@ -29,7 +35,7 @@ function dynamicReducers(sliceOptions: SliceOptionsItem | Array<SliceOptionsItem
    * @return { FunctionComponent }
    */
   return function(Module: FunctionComponent | ClassicComponentClass): FunctionComponent {
-    return function(props: any): ReactElement {
+    return function(props: T): ReactElement {
       const context: DynamicReducersContextType = useContext(DynamicReducersContext);
 
       if (injectModels) {
