@@ -2,10 +2,6 @@ import { createElement, useMemo, useContext, ReactElement, FunctionComponent, Cl
 import DynamicReducersContext, { DynamicReducersContextType } from './DynamicReducersContext';
 import type { SliceOptionsItem } from '../template/types';
 
-interface DefaultProps {
-  [key: string]: any;
-}
-
 interface AsyncLoadReducersComponent<T> {
   (Module: FunctionComponent | ClassicComponentClass): FunctionComponent<T>;
 }
@@ -26,7 +22,7 @@ function formatSliceOptions(sliceOptions: SliceOptions): Array<SliceOptionsItem>
  * @param { SliceOptions } sliceOptions
  * @return { AsyncLoadReducersComponent }
  */
-function dynamicReducers<T = DefaultProps>(sliceOptions: SliceOptions): AsyncLoadReducersComponent<T> {
+function dynamicReducers<T = Record<string, any>>(sliceOptions: SliceOptions): AsyncLoadReducersComponent<T> {
   let injectModels: boolean = true; // 是否需要注入
 
   /**

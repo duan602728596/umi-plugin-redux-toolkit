@@ -18,8 +18,8 @@ export interface IgnoreOptions {
 
 export type SliceOptionsItem = CreateSliceOptions | Slice;
 
-export interface RuntimeReduxToolkit {
-  initialState?: DeepPartial<any> | (() => DeepPartial<any>);
+export interface RuntimeReduxToolkit<T = any> {
+  initialState?: DeepPartial<T> | (() => DeepPartial<T>);
   ignoreOptions?: IgnoreOptions;
   warnAfter?: number;
 }
