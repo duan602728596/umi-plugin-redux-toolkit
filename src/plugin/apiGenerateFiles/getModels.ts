@@ -4,8 +4,7 @@ import { utils, type IApi } from 'umi';
 import type { IOptions } from 'glob';
 import { getConfig, type PluginConfig } from '../utils';
 
-const { lodash: _, glob }: typeof utils = utils;
-const globPromise: (pattern: string, options?: IOptions) => Promise<Array<string>> = promisify(glob);
+const globPromise: (pattern: string, options?: IOptions) => Promise<Array<string>> = promisify(utils.glob);
 
 /**
  * 获取redux的目录名称
@@ -60,8 +59,10 @@ export function getModelsPath(api: IApi): string {
 export async function getAllModels(api: IApi): Promise<Array<string>> {
   const srcModelsPath: string = getModelsPath(api);
 
-  return _.uniq([
-    ...await getModels(api, srcModelsPath),
-    ...await getModels(api, api.paths.absPagesPath!, `**/${ getModelDir(api) }/**/*.{ts,tsx,js,jsx,mjs,cjs}`)
-  ]);
+  return Array.from(
+    new Set<string>([
+      ...await getModels(api, srcModelsPath),
+      ...await getModels(api, api.paths.absPagesPath!, `**/${ getModelDir(api) }/**/*.{ts,tsx,js,jsx,mjs,cjs}`)
+    ])
+  );
 }
