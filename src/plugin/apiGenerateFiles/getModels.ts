@@ -1,8 +1,8 @@
 import { promisify } from 'util';
 import * as path from 'path';
-import { utils, IApi } from 'umi';
+import { utils, type IApi } from 'umi';
 import type { IOptions } from 'glob';
-import { getConfig, PluginConfig } from '../utils';
+import { getConfig, type PluginConfig } from '../utils';
 
 const { lodash: _, glob }: typeof utils = utils;
 const globPromise: (pattern: string, options?: IOptions) => Promise<Array<string>> = promisify(glob);

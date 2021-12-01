@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { utils, IApi } from 'umi';
+import { utils, type IApi } from 'umi';
 import describe from './describe';
 import apiGenerateFiles from './apiGenerateFiles/apiGenerateFiles';
 import { pluginName } from './utils';

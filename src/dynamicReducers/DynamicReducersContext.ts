@@ -1,4 +1,4 @@
-import { createContext, Context } from 'react';
+import { createContext, type Context } from 'react';
 import type { SliceOptionsItem } from '../template/types';
 
 export interface DynamicReducersContextType {
