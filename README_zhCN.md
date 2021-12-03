@@ -81,6 +81,27 @@ export default {
 };
 ```
 
+现在还支持导出 RTK Query 创建的 API。例如：
+
+```javascript
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
+  endpoints(builder) {
+    return {
+      getData: builder.query({
+        query: (q) => q
+      })
+    };
+  }
+});
+
+export const { useGetDataQuery } = api;
+export default api;
+```
+
 ## 初始值
 
 在app.js内导出
@@ -108,7 +129,9 @@ export function reduxToolkit() {
 ## 异步注入reducers
 
 models文件夹中的`*.async.{js,jsx,ts,tsx}`文件会被认为是异步注入的reducers，不会被自动加载。   
-配置`asyncLoadReducers: true`开启异步注入reducers功能。
+配置`asyncLoadReducers: true`开启异步注入reducers功能。   
+
+通过RTK Query创建的Api无法被异步加载，因为它需要添加middleware.
 
 ```javascript
 import { dynamicReducers } from 'umi-plugin-redux-toolkit/dynamicReducers';

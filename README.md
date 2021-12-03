@@ -85,6 +85,27 @@ export default {
 };
 ```
 
+Now also supports exporting APIs created by RTK Query. E.g:
+
+```javascript
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
+  endpoints(builder) {
+    return {
+      getData: builder.query({
+        query: (q) => q
+      })
+    };
+  }
+});
+
+export const { useGetDataQuery } = api;
+export default api;
+```
+
 ## Initial value
 
 Export in app.js
@@ -112,7 +133,9 @@ export function reduxToolkit() {
 ## Asynchronous injection of reducers
 
 The `*.async.{js,jsx,ts,tsx}` files in the models folder will be considered as asynchronously injected reducers and will not be automatically loaded.   
-Configure `asyncLoadReducers: true` to enable asynchronous injection of reducers.
+Configure `asyncLoadReducers: true` to enable asynchronous injection of reducers.   
+
+Api created by RTK Query cannot be loaded asynchronously because it needs to add middleware.
 
 ```javascript
 import { dynamicReducers } from 'umi-plugin-redux-toolkit/dynamicReducers';
