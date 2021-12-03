@@ -6,15 +6,17 @@ import {
   Store,
   ConfigureStoreOptions
 } from '@reduxjs/toolkit';
+import type { Middleware } from 'redux';
 import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 // @ts-ignore
 import { ignoreOptions, sliceOptions, SliceOptionsItem } from './options';
-import { mergeIgnoreOptions, toReducers } from './utils';
+import { mergeIgnoreOptions, toReducers, getRTKQuerySet } from './utils';
 import type { IgnoreOptions, RuntimeReduxToolkit, GetDefaultMiddlewareOptions, MiddlewareCbReturn } from './types';
 
 /* 创建reducer */
 const processedReducers: ReducersMapObject = toReducers(sliceOptions); // 已经格式化完毕的reducers配置
 const reducer: Reducer = combineReducers(processedReducers);
+const RTKQuerySet: Set<Middleware> = getRTKQuerySet(sliceOptions); // RTKQuery的中间件
 
 /* store */
 export let store: Store;
@@ -30,6 +32,8 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
       initialState,                      // 初始化的state
       ignoreOptions: otherIgnoreOptions, // 忽略检查的action和paths
       warnAfter,                         // 检查时间超过Nms，则打印警告
+      reducers: customReducers,          // 后添加的reducer
+      middlewares,                       // 添加自定义中间件
       treatStore                         // 对store的处理
     }: RuntimeReduxToolkit = runtimeReduxToolkit;
 
@@ -54,11 +58,32 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
 
     // 中间件
     options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): MiddlewareCbReturn {
-      return getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
+      const allMiddlewares: MiddlewareCbReturn
+        = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
+
+      // 添加rtk的中间件
+      if (RTKQuerySet.size > 0) {
+        RTKQuerySet.forEach((m: Middleware): unknown => allMiddlewares.push(m));
+      }
+
+      // 添加自定义的中间件
+      if (Array.isArray(middlewares) && middlewares.length > 0) {
+        allMiddlewares.push(...middlewares);
+      }
+
+      return allMiddlewares;
     };
 
     /* 合并store */
     store = configureStore(options);
+
+    /* 添加自定义的reducer */
+    if (customReducers) {
+      Object.assign(processedReducers, customReducers);
+      store.replaceReducer(combineReducers(processedReducers));
+    }
+
+    /* 对store进行处理 */
     treatStore && treatStore(store);
   }
 

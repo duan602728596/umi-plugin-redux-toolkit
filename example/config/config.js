@@ -14,13 +14,17 @@ const config = {
     {
       path: '/asyncModel',
       component: path.join(pages, 'asyncModel.js')
+    },
+    {
+      path: '/query',
+      component: path.join(pages, 'query.js')
     }
   ],
   alias: {
     'umi-plugin-redux-toolkit/dynamicReducers': path.join(__dirname, '../../dynamicReducers.js')
   },
   reduxToolkit: {
-    esModule: true,
+    esModule: false,
     asyncLoadReducers: true
   }
 };

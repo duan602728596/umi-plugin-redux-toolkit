@@ -1,4 +1,5 @@
 import { createSlice, Slice, ReducersMapObject, CreateSliceOptions } from '@reduxjs/toolkit';
+import type { Middleware } from 'redux';
 import type { IgnoreOptions, SliceOptionsItem, SliceReducers } from './types';
 
 /**
@@ -62,11 +63,11 @@ export function formatReducers(reducers: SliceReducers, regexp: RegExp): SliceRe
 
 /**
  * 创建reducers
- * @param { Array<SliceOptionsItem> } sliceOptions: slice或者创建slice的配置
+ * @param { Array<SliceOptionsItem> } sliceOptions: slice或者创建slice的配置，或者是一个RTKQuery创建的Api
  * @return { ReducersMapObject }
  */
 export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): ReducersMapObject {
-  const result: ReducersMapObject = {};
+  const reducersMap: ReducersMapObject = {};
 
   for (const item of sliceOptions) {
     if (!item) {
@@ -74,7 +75,7 @@ export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): Reducers
     }
 
     if (isSlice(item)) {
-      result[item.name] = item.reducer;
+      reducersMap[item.name] = item.reducer;
     } else if (item.name) {
       const options: CreateSliceOptions = { ...item };               // 创建slice的配置
       const regexp: RegExp = new RegExp(`^${ item.name }/`); // 命名空间的判断
@@ -86,9 +87,28 @@ export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): Reducers
 
       const slice: Slice = createSlice(options);
 
-      result[slice.name] = slice.reducer;
+      reducersMap[slice.name] = slice.reducer;
+    } else if (item.reducerPath) {
+      reducersMap[item.reducerPath] = item.reducer;
     }
   }
 
-  return result;
+  return reducersMap;
+}
+
+/**
+ * 获取所有RTKQuery的middleware的Set
+ * @param { Array<SliceOptionsItem> } sliceOptions: slice或者创建slice的配置
+ * @return { Set<Middleware> }
+ */
+export function getRTKQuerySet(sliceOptions: Array<SliceOptionsItem> = []): Set<Middleware> {
+  const set: Set<Middleware> = new Set();
+
+  for (const item of sliceOptions) {
+    if (item.reducerPath) {
+      set.add(item.middleware);
+    }
+  }
+
+  return set;
 }
