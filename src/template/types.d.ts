@@ -1,5 +1,6 @@
 import type { Middleware } from 'redux';
 import type {
+  Store,
   CreateSliceOptions,
   Slice,
   SliceCaseReducers,
@@ -22,6 +23,7 @@ export interface RuntimeReduxToolkit<T = any> {
   initialState?: DeepPartial<T> | (() => DeepPartial<T>);
   ignoreOptions?: IgnoreOptions;
   warnAfter?: number;
+  treatStore?(store: Store): void;
 }
 
 export type RuntimeReduxToolkitApply = RuntimeReduxToolkit | (() => RuntimeReduxToolkit);

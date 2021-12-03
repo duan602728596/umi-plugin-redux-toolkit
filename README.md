@@ -91,9 +91,10 @@ Export in app.js
 
 ```
 export const reduxToolkit = {
-  initialState: {},  // Initialize the value of redux
-  ignoreOptions: {}, // Same as the ignoreOptions configuration above, it will be merged
-  warnAfter: 800     // If the check time of immutableCheck and serializableCheck exceeds 32ms, there will be a warning. Modify the warning time
+  initialState: {},    // Initialize the value of redux
+  ignoreOptions: {},   // Same as the ignoreOptions configuration above, it will be merged
+  warnAfter: 800,      // If the check time of immutableCheck and serializableCheck exceeds 32ms, there will be a warning. Modify the warning time
+  treatStore(store) {} // Allows you to perform other processing on the store, such as mounting some monitoring methods
 };
 
 // or
@@ -102,7 +103,8 @@ export function reduxToolkit() {
   return {
     initialState: () => ({}), // It can also be a function to initialize the value of redux
     ignoreOptions: {},        // Same as the ignoreOptions configuration above, it will be merged
-    warnAfter: 800            // If the check time of immutableCheck and serializableCheck exceeds 32ms, there will be a warning. Modify the warning time
+    warnAfter: 800,           // If the check time of immutableCheck and serializableCheck exceeds 32ms, there will be a warning. Modify the warning time
+    treatStore(store) {}      // Allows you to perform other processing on the store, such as mounting some monitoring methods
   };
 }
 ```

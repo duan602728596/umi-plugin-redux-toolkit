@@ -29,7 +29,8 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
     const {
       initialState,                      // 初始化的state
       ignoreOptions: otherIgnoreOptions, // 忽略检查的action和paths
-      warnAfter                          // 检查时间超过Nms，则打印警告
+      warnAfter,                         // 检查时间超过Nms，则打印警告
+      treatStore                         // 对store的处理
     }: RuntimeReduxToolkit = runtimeReduxToolkit;
 
     // store的配置
@@ -58,6 +59,7 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
 
     /* 合并store */
     store = configureStore(options);
+    treatStore && treatStore(store);
   }
 
   return store;

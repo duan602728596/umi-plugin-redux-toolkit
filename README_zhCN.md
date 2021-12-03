@@ -87,9 +87,10 @@ export default {
 
 ```
 export const reduxToolkit = {
-  initialState: {},  // 初始化redux的值
-  ignoreOptions: {}, // 同上面的ignoreOptions配置，会做合并处理
-  warnAfter: 800     // immutableCheck和serializableCheck的检查时间超过32ms会有警告，修改警告时间
+  initialState: {},    // 初始化redux的值
+  ignoreOptions: {},   // 同上面的ignoreOptions配置，会做合并处理
+  warnAfter: 800,      // immutableCheck和serializableCheck的检查时间超过32ms会有警告，修改警告时间
+  treatStore(store) {} // 可以让你对store进行其他处理，比如挂载一些监听的方法
 };
 
 // or
@@ -98,7 +99,8 @@ export function reduxToolkit() {
   return {
     initialState: () => ({}), // 也可以是一个函数来初始化redux的值
     ignoreOptions: {},        // 同上面的ignoreOptions配置，会做合并处理
-    warnAfter: 800            // immutableCheck和serializableCheck的检查时间超过32ms会有警告，修改警告时间
+    warnAfter: 800,           // immutableCheck和serializableCheck的检查时间超过32ms会有警告，修改警告时间
+    treatStore(store) {}      // 可以让你对store进行其他处理，比如挂载一些监听的方法
   };
 }
 ```
