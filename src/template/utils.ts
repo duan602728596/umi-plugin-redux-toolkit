@@ -101,14 +101,14 @@ export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): Reducers
  * @param { Array<SliceOptionsItem> } sliceOptions: slice或者创建slice的配置
  * @return { Set<Middleware> }
  */
-export function getRTKQuerySet(sliceOptions: Array<SliceOptionsItem> = []): Set<Middleware> {
-  const set: Set<Middleware> = new Set();
+export function getRTKQueryMiddlewareSet(sliceOptions: Array<SliceOptionsItem> = []): Set<Middleware> {
+  const RTKQueryMiddlewareSet: Set<Middleware> = new Set();
 
   for (const item of sliceOptions) {
     if (item.reducerPath) {
-      set.add(item.middleware);
+      RTKQueryMiddlewareSet.add(item.middleware);
     }
   }
 
-  return set;
+  return RTKQueryMiddlewareSet;
 }

@@ -10,13 +10,13 @@ import type { Middleware } from 'redux';
 import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 // @ts-ignore
 import { ignoreOptions, sliceOptions, SliceOptionsItem } from './options';
-import { mergeIgnoreOptions, toReducers, getRTKQuerySet } from './utils';
+import { mergeIgnoreOptions, toReducers, getRTKQueryMiddlewareSet } from './utils';
 import type { IgnoreOptions, RuntimeReduxToolkit, GetDefaultMiddlewareOptions, MiddlewareCbReturn } from './types';
 
 /* 创建reducer */
 const processedReducers: ReducersMapObject = toReducers(sliceOptions); // 已经格式化完毕的reducers配置
 const reducer: Reducer = combineReducers(processedReducers);
-const RTKQuerySet: Set<Middleware> = getRTKQuerySet(sliceOptions); // RTKQuery的中间件
+const RTKQueryMiddlewareSet: Set<Middleware> = getRTKQueryMiddlewareSet(sliceOptions); // RTKQuery的中间件
 
 /* store */
 export let store: Store;
@@ -62,8 +62,8 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
         = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
 
       // 添加rtk的中间件
-      if (RTKQuerySet.size > 0) {
-        RTKQuerySet.forEach((m: Middleware): unknown => allMiddlewares.push(m));
+      if (RTKQueryMiddlewareSet.size > 0) {
+        RTKQueryMiddlewareSet.forEach((m: Middleware): unknown => allMiddlewares.push(m));
       }
 
       // 添加自定义的中间件
