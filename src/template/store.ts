@@ -33,7 +33,7 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
       ignoreOptions: otherIgnoreOptions, // 忽略检查的action和paths
       warnAfter,                         // 检查时间超过Nms，则打印警告
       reducers: customReducers,          // 后添加的reducer
-      middlewares,                       // 添加自定义中间件
+      middlewares: customMiddlewares,    // 添加自定义中间件
       treatStore                         // 对store的处理
     }: RuntimeReduxToolkit = runtimeReduxToolkit;
 
@@ -67,8 +67,8 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
       }
 
       // 添加自定义的中间件
-      if (Array.isArray(middlewares) && middlewares.length > 0) {
-        allMiddlewares.push(...middlewares);
+      if (Array.isArray(customMiddlewares) && customMiddlewares.length > 0) {
+        allMiddlewares.push(...customMiddlewares);
       }
 
       return allMiddlewares;
