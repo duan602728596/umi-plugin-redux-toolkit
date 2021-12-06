@@ -58,17 +58,17 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
 
     // 中间件
     options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): MiddlewareCbReturn {
-      const allMiddlewares: MiddlewareCbReturn
+      let allMiddlewares: MiddlewareCbReturn
         = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
 
-      // 添加rtk的中间件
+      // 添加RTK的中间件
       if (RTKQueryMiddlewareSet.size > 0) {
-        RTKQueryMiddlewareSet.forEach((m: Middleware): unknown => allMiddlewares.push(m));
+        allMiddlewares = allMiddlewares.concat(Array.from<Middleware>(RTKQueryMiddlewareSet));
       }
 
       // 添加自定义的中间件
       if (Array.isArray(customMiddlewares) && customMiddlewares.length > 0) {
-        allMiddlewares.push(...customMiddlewares);
+        allMiddlewares = allMiddlewares.concat(customMiddlewares);
       }
 
       return allMiddlewares;
