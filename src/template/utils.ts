@@ -105,7 +105,7 @@ export function getRTKQueryMiddlewareSet(sliceOptions: Array<SliceOptionsItem> =
   const RTKQueryMiddlewareSet: Set<Middleware> = new Set();
 
   for (const item of sliceOptions) {
-    if (item.reducerPath) {
+    if (item?.reducerPath) {
       RTKQueryMiddlewareSet.add(item.middleware);
     }
   }
