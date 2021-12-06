@@ -81,7 +81,7 @@ export default {
 };
 ```
 
-现在还支持导出 RTK Query 创建的 API。例如：
+现在还支持导出 RTK RTKQuery 创建的 API。例如：
 
 ```javascript
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';

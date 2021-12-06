@@ -9,15 +9,15 @@ const config = {
   routes: [
     {
       path: '/index',
-      component: path.join(pages, 'index.js')
+      component: path.join(pages, 'Index/index.js')
     },
     {
       path: '/asyncModel',
-      component: path.join(pages, 'asyncModel.js')
+      component: path.join(pages, 'AsyncModel/AsyncModel.js')
     },
     {
-      path: '/query',
-      component: path.join(pages, 'query.js')
+      path: '/RTKQuery',
+      component: path.join(pages, 'RTKQuery/RTKQuery.js')
     }
   ],
   alias: {

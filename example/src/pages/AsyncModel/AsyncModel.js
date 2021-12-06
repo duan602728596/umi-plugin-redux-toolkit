@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 import { dynamicReducers } from 'umi-plugin-redux-toolkit/dynamicReducers';
-import style from './index.less';
-import asyncModel, { setAddNumber } from './models/asyncModel.async';
+import style from '../style.less';
+import asyncModel, { setAddNumber } from '../models/asyncModel.async';
 
 const state = createStructuredSelector({
   number: createSelector(

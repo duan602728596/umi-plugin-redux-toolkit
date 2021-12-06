@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
-import style from './index.less';
-import { requestList } from './models';
-import { setAddNumber } from './models/add';
+import style from '../style.less';
+import { requestList } from '../models';
+import { setAddNumber } from '../models/add';
 
 /* state */
 const state = createStructuredSelector({

@@ -1,7 +1,7 @@
-import { useGetMockDataQuery } from './models/rtkQuery';
-import style from './index.less';
+import { useGetMockDataQuery } from '../models/RTKQuery';
+import style from '../style.less';
 
-function Query(props) {
+function RTKQuery(props) {
   const getMockDataQuery = useGetMockDataQuery({
     queryName: 'useGetMockDataQuery'
   });
@@ -36,4 +36,4 @@ function Query(props) {
   );
 }
 
-export default Query;
+export default RTKQuery;
