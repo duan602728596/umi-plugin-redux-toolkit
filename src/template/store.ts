@@ -4,9 +4,9 @@ import {
   ReducersMapObject,
   Reducer,
   Store,
-  ConfigureStoreOptions
+  ConfigureStoreOptions,
+  Middleware
 } from '@reduxjs/toolkit';
-import type { Middleware } from 'redux';
 import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 // @ts-ignore
 import { ignoreOptions, sliceOptions, SliceOptionsItem } from './options';

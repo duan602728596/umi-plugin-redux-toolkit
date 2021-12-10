@@ -1,5 +1,4 @@
-import { createSlice, Slice, ReducersMapObject, CreateSliceOptions } from '@reduxjs/toolkit';
-import type { Middleware } from 'redux';
+import { createSlice, Slice, ReducersMapObject, CreateSliceOptions, Middleware } from '@reduxjs/toolkit';
 import type { IgnoreOptions, SliceOptionsItem, SliceReducers } from './types';
 
 /**

@@ -1,4 +1,3 @@
-import type { Middleware } from 'redux';
 import type {
   Store,
   CreateSliceOptions,
@@ -8,8 +7,8 @@ import type {
   ImmutableStateInvariantMiddlewareOptions,
   SerializableStateInvariantMiddlewareOptions,
   MiddlewareArray,
+  Middleware,
   ValidateSliceCaseReducers,
-  Middlewares,
   ReducersMapObject
 } from '@reduxjs/toolkit';
 import type { ThunkMiddlewareFor } from '@reduxjs/toolkit/src/getDefaultMiddleware';
@@ -27,7 +26,7 @@ export interface RuntimeReduxToolkit<T = any> {
   ignoreOptions?: IgnoreOptions;
   warnAfter?: number;
   reducers?: ReducersMapObject;
-  middlewares?: Array<Middlewares>;
+  middlewares?: Array<Middleware>;
   treatStore?(store: Store): void;
 }
 
