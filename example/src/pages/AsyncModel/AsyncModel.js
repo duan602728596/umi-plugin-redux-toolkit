@@ -1,16 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { createSelector } from '@reduxjs/toolkit';
+import { createStructuredSelector } from 'reselect';
 import { dynamicReducers } from 'umi-plugin-redux-toolkit/dynamicReducers';
 import style from '../style.less';
 import asyncModel, { setAddNumber } from '../models/asyncModel.async';
 
 /* redux selector */
-const selector = createSelector(
-  [
-    ({ asyncModel: am }) => am?.number ?? 13
-  ],
-  (number) => ({ number })
-);
+const selector = createStructuredSelector({
+  number: ({ asyncModel: am }) => am?.number ?? 13
+});
 
 function AsyncModel(props) {
   const { number } = useSelector(selector);
