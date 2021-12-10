@@ -1,18 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 import { dynamicReducers } from 'umi-plugin-redux-toolkit/dynamicReducers';
 import style from '../style.less';
 import asyncModel, { setAddNumber } from '../models/asyncModel.async';
 
-const state = createStructuredSelector({
-  number: createSelector(
-    ({ asyncModel: am }) => am?.number ?? 13,
-    (data) => data
-  )
-});
+/* redux selector */
+const selector = createSelector(
+  [
+    ({ asyncModel: am }) => am?.number ?? 13
+  ],
+  (number) => ({ number })
+);
 
 function AsyncModel(props) {
-  const { number } = useSelector(state);
+  const { number } = useSelector(selector);
   const dispatch = useDispatch();
 
   function handleAddClick(event) {

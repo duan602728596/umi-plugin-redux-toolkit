@@ -1,25 +1,22 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 import style from '../style.less';
 import { requestList } from '../models';
 import { setAddNumber } from '../models/add';
 
-/* state */
-const state = createStructuredSelector({
-  dataList: createSelector(
+/* redux selector */
+const selector = createSelector(
+  [
     ({ index }) => index.dataList,
-    (data) => data
-  ),
-
-  number: createSelector(
-    ({ add }) => add.number,
-    (data) => data
-  )
-});
+    ({ add }) => add.number
+  ],
+  (dataList, number) => ({ dataList, number })
+);
 
 function Index(props) {
-  const { dataList, number } = useSelector(state);
+  const x = useSelector(selector);
+  const { dataList, number } = useSelector(selector);
   const dispatch = useDispatch();
 
   function handleAddClick(event) {
