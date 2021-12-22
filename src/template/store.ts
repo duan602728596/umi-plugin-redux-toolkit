@@ -21,6 +21,66 @@ const RTKQueryMiddlewareSet: Set<Middleware> = getRTKQueryMiddlewareSet(sliceOpt
 /* store */
 export let store: Store;
 
+function createStore(runtimeReduxToolkit: RuntimeReduxToolkit = {}): void {
+  const {
+    initialState,                      // 初始化的state
+    ignoreOptions: otherIgnoreOptions, // 忽略检查的action和paths
+    warnAfter,                         // 检查时间超过Nms，则打印警告
+    reducers: customReducers,          // 后添加的reducer
+    middlewares: customMiddlewares,    // 添加自定义中间件
+    treatStore                         // 对store的处理
+  }: RuntimeReduxToolkit = runtimeReduxToolkit;
+
+  // store的配置
+  const options: ConfigureStoreOptions = {
+    reducer,
+    preloadedState: typeof initialState === 'function' ? initialState() : initialState
+  };
+
+  // 配置忽略检查的action和paths
+  const ignore: IgnoreOptions = mergeIgnoreOptions(ignoreOptions, otherIgnoreOptions);
+
+  // getDefaultMiddleware的配置
+  const defaultMiddlewareOptions: GetDefaultMiddlewareOptions = {
+    immutableCheck: Object.assign({
+      warnAfter: warnAfter ?? 800 // See https://redux-toolkit.js.org/api/immutabilityMiddleware#options
+    }, ignore),
+    serializableCheck: Object.assign({
+      warnAfter: warnAfter ?? 800 // See https://redux-toolkit.js.org/api/serializabilityMiddleware#options
+    }, ignore)
+  };
+
+  // 中间件
+  options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): MiddlewareCbReturn {
+    let allMiddlewares: MiddlewareCbReturn
+      = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
+
+    // 添加RTK的中间件
+    if (RTKQueryMiddlewareSet.size > 0) {
+      allMiddlewares = allMiddlewares.concat(Array.from<Middleware>(RTKQueryMiddlewareSet));
+    }
+
+    // 添加自定义的中间件
+    if (Array.isArray(customMiddlewares) && customMiddlewares.length > 0) {
+      allMiddlewares = allMiddlewares.concat(customMiddlewares);
+    }
+
+    return allMiddlewares;
+  };
+
+  /* 合并store */
+  store = configureStore(options);
+
+  /* 添加自定义的reducer */
+  if (customReducers) {
+    Object.assign(processedReducers, customReducers);
+    store.replaceReducer(combineReducers(processedReducers));
+  }
+
+  /* 对store进行处理 */
+  treatStore && treatStore(store);
+}
+
 /**
  * 创建并返回store
  * @param { RuntimeReduxToolkit } runtimeReduxToolkit: 初始化的值
@@ -28,63 +88,7 @@ export let store: Store;
  */
 export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Store {
   if (!store) {
-    const {
-      initialState,                      // 初始化的state
-      ignoreOptions: otherIgnoreOptions, // 忽略检查的action和paths
-      warnAfter,                         // 检查时间超过Nms，则打印警告
-      reducers: customReducers,          // 后添加的reducer
-      middlewares: customMiddlewares,    // 添加自定义中间件
-      treatStore                         // 对store的处理
-    }: RuntimeReduxToolkit = runtimeReduxToolkit;
-
-    // store的配置
-    const options: ConfigureStoreOptions = {
-      reducer,
-      preloadedState: typeof initialState === 'function' ? initialState() : initialState
-    };
-
-    // 配置忽略检查的action和paths
-    const ignore: IgnoreOptions = mergeIgnoreOptions(ignoreOptions, otherIgnoreOptions);
-
-    // getDefaultMiddleware的配置
-    const defaultMiddlewareOptions: GetDefaultMiddlewareOptions = {
-      immutableCheck: Object.assign({
-        warnAfter: warnAfter ?? 800 // See https://redux-toolkit.js.org/api/immutabilityMiddleware#options
-      }, ignore),
-      serializableCheck: Object.assign({
-        warnAfter: warnAfter ?? 800 // See https://redux-toolkit.js.org/api/serializabilityMiddleware#options
-      }, ignore)
-    };
-
-    // 中间件
-    options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): MiddlewareCbReturn {
-      let allMiddlewares: MiddlewareCbReturn
-        = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
-
-      // 添加RTK的中间件
-      if (RTKQueryMiddlewareSet.size > 0) {
-        allMiddlewares = allMiddlewares.concat(Array.from<Middleware>(RTKQueryMiddlewareSet));
-      }
-
-      // 添加自定义的中间件
-      if (Array.isArray(customMiddlewares) && customMiddlewares.length > 0) {
-        allMiddlewares = allMiddlewares.concat(customMiddlewares);
-      }
-
-      return allMiddlewares;
-    };
-
-    /* 合并store */
-    store = configureStore(options);
-
-    /* 添加自定义的reducer */
-    if (customReducers) {
-      Object.assign(processedReducers, customReducers);
-      store.replaceReducer(combineReducers(processedReducers));
-    }
-
-    /* 对store进行处理 */
-    treatStore && treatStore(store);
+    createStore(runtimeReduxToolkit);
   }
 
   return store;
