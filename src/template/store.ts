@@ -9,9 +9,16 @@ import {
 } from '@reduxjs/toolkit';
 import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 // @ts-ignore
-import { ignoreOptions, sliceOptions, SliceOptionsItem } from './options';
+// eslint-disable-next-line import/no-unresolved
+import { ignoreOptions, sliceOptions } from './options.ts';
 import { mergeIgnoreOptions, toReducers, getRTKQueryMiddlewareSet } from './helpers';
-import type { IgnoreOptions, RuntimeReduxToolkit, GetDefaultMiddlewareOptions, MiddlewareCbReturn } from './types';
+import type {
+  IgnoreOptions,
+  SliceOptionsItem,
+  RuntimeReduxToolkit,
+  GetDefaultMiddlewareOptions,
+  MiddlewareCbReturn
+} from './types';
 
 /* 创建reducer */
 const processedReducers: ReducersMapObject = toReducers(sliceOptions); // 已经格式化完毕的reducers配置
