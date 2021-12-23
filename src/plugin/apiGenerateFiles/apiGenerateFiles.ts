@@ -3,7 +3,6 @@ import { promises as fs } from 'fs';
 import type { IApi } from 'umi';
 import { getAllModels } from './getModels';
 import { getConfig, PluginConfig } from '../utils';
-import { esModuleOptionsContent, commonjsOptionsContent } from './getContent';
 
 /**
  * 读取文件
@@ -32,13 +31,9 @@ function apiGenerateFiles(api: IApi): void {
     const config: PluginConfig | undefined = getConfig(api);
 
     /* ============= options ============= */
-    // options
-    const optionsContent: string = await readTemplateFile('options.ts');
-    const ignoreOptions: string = config?.ignoreOptions
-      ? JSON.stringify(config.ignoreOptions, null, 2) : '{}';
-
-    // models
-    const models: Array<string> = await getAllModels(api);
+    const models: Array<string> = await getAllModels(api); // 获取models中的文件
+    let importContent: string = '';
+    let sliceContent: string = '[]';
 
     if (config?.esModule) {
       type moduleItem = { name: string; content: string };
@@ -56,40 +51,34 @@ function apiGenerateFiles(api: IApi): void {
       });
 
       // 模块导入
-      const importContent: string = modelsEsModuleArray.map((item: moduleItem): string => item.content).join('\n');
+      importContent = modelsEsModuleArray.map((item: moduleItem): string => item.content).join('\n');
 
       // 变量
-      const variableContent: string = modelsEsModuleArray.length > 0
+      sliceContent = modelsEsModuleArray.length > 0
         ? `[\n${ modelsEsModuleArray.map((item: moduleItem): string => `  ${ item.name }`).join(',\n') }\n]` : '[]';
-
-      // 写入文件
-      api.writeTmpFile({
-        path: 'plugin-redux-toolkit/options.ts',
-        content: esModuleOptionsContent({
-          optionsContent,
-          importContent,
-          ignoreOptions,
-          variableContent
-        })
-      });
     } else {
       // commonjs
       const modelsModuleRequireArray: Array<string> = models.map((item: string) => `  require('${ item }').default`);
 
       // 模块导入(commonjs)
-      const modelsContent: string = modelsModuleRequireArray.length > 0
+      sliceContent = modelsModuleRequireArray.length > 0
         ? `[\n${ modelsModuleRequireArray.join(',\n') }\n]` : '[]';
-
-      // 写入文件
-      api.writeTmpFile({
-        path: 'plugin-redux-toolkit/options.ts',
-        content: commonjsOptionsContent({
-          optionsContent,
-          ignoreOptions,
-          modelsContent
-        })
-      });
     }
+
+    const optionsTplContent: string = Mustache.render(
+      await readTemplateFile('options.ts.tpl'),
+      {
+        ignoreOptions: config?.ignoreOptions
+          ? JSON.stringify(config.ignoreOptions, null, 2) : '{}',
+        importContent: importContent ?? '',
+        slice: sliceContent
+      }
+    );
+
+    api.writeTmpFile({
+      path: 'plugin-redux-toolkit/options.ts',
+      content: optionsTplContent
+    });
 
     /* ============= 创建store ============= */
     api.writeTmpFile({
