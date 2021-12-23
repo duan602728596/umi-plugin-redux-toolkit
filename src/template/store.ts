@@ -10,7 +10,7 @@ import {
 import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 // @ts-ignore
 import { ignoreOptions, sliceOptions, SliceOptionsItem } from './options';
-import { mergeIgnoreOptions, toReducers, getRTKQueryMiddlewareSet } from './helper';
+import { mergeIgnoreOptions, toReducers, getRTKQueryMiddlewareSet } from './helpers';
 import type { IgnoreOptions, RuntimeReduxToolkit, GetDefaultMiddlewareOptions, MiddlewareCbReturn } from './types';
 
 /* 创建reducer */

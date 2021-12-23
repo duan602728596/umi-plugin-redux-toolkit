@@ -1,5 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import { mergeIgnoreOptions, formatReducers, isSlice, toReducers } from '../src/template/helper';
+import { mergeIgnoreOptions, formatReducers, isSlice, toReducers } from '../src/template/helpers';
 
 test('mergeIgnoreOptions func', function() {
   expect(mergeIgnoreOptions(undefined, undefined)).toStrictEqual({});

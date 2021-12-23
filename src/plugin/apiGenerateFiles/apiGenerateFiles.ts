@@ -125,10 +125,10 @@ function apiGenerateFiles(api: IApi): void {
       content: runtimeTplContent
     });
 
-    /* ============= 创建utils ============= */
+    /* ============= 创建helpers ============= */
     api.writeTmpFile({
-      path: 'plugin-redux-toolkit/helper.ts',
-      content: await readTemplateFile('helper.ts')
+      path: 'plugin-redux-toolkit/helpers.ts',
+      content: await readTemplateFile('helpers.ts')
     });
 
     /* ============= 创建types.d.ts文件 ============= */
