@@ -2,6 +2,20 @@ import { createSlice, Slice, ReducersMapObject, CreateSliceOptions, Middleware }
 import type { IgnoreOptions, SliceOptionsItem, SliceReducers } from './types';
 
 /**
+ * 合并函数
+ * @param { IgnoreOptions } ignore
+ * @param { string } key: 要合并的key
+ * @param { Array<string> } optionsArr: key对应的值
+ */
+function _merge(ignore: IgnoreOptions, key: string, optionsArr: Array<string>): void {
+  if (!(key in ignore)) {
+    ignore[key] = [];
+  }
+
+  ignore[key].push(...optionsArr);
+}
+
+/**
  * 合并ignore选项
  * @param { Array<IgnoreOptions | undefined> } ignoreOptions: 合并ignoredPaths和ignoredActions
  * @return { IgnoreOptions }
@@ -9,26 +23,13 @@ import type { IgnoreOptions, SliceOptionsItem, SliceReducers } from './types';
 export function mergeIgnoreOptions(...ignoreOptions: Array<IgnoreOptions | undefined>): IgnoreOptions {
   const ignore: IgnoreOptions = {};
 
-  /**
-   * 合并函数
-   * @param { string } k: 要合并的key
-   * @param { Array<string> } o: key对应的值
-   */
-  const merge: (k: string, o: Array<string>) => void = (k: string, o: Array<string>): void => {
-    if (!(k in ignore)) {
-      ignore[k] = [];
-    }
-
-    ignore[k].push(...o);
-  };
-
   // 合并
   const filterIgnoreOptions: Array<IgnoreOptions> = ignoreOptions
     .filter<IgnoreOptions>((o: IgnoreOptions | undefined): o is IgnoreOptions => o !== undefined && o !== null);
 
-  for (const item of filterIgnoreOptions) {
-    for (const key in item) {
-      item[key]?.length && merge(key, item[key]);
+  for (const options of filterIgnoreOptions) {
+    for (const key in options) {
+      options[key]?.length && _merge(ignore, key, options[key]);
     }
   }
 

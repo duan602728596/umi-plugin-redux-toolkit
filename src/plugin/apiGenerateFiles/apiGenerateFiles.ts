@@ -127,8 +127,8 @@ function apiGenerateFiles(api: IApi): void {
 
     /* ============= 创建utils ============= */
     api.writeTmpFile({
-      path: 'plugin-redux-toolkit/utils.ts',
-      content: await readTemplateFile('utils.ts')
+      path: 'plugin-redux-toolkit/helper.ts',
+      content: await readTemplateFile('helper.ts')
     });
 
     /* ============= 创建types.d.ts文件 ============= */
