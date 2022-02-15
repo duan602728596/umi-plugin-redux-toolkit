@@ -1,5 +1,5 @@
 import { createSlice, Slice, ReducersMapObject, CreateSliceOptions, Middleware } from '@reduxjs/toolkit';
-import type { IgnoreOptions, SliceOptionsItem, SliceReducers } from './types';
+import type { IgnoreOptions, QueryApi, SliceOptionsItem, SliceReducers } from './types';
 
 /**
  * 合并函数
@@ -45,6 +45,22 @@ export function isSlice(slice: SliceOptionsItem): slice is Slice {
 }
 
 /**
+ * 判断是否是sliceOptions
+ * @param { SliceOptionsItem } slice: 通过CreateSliceOption创建的slice或者为创建完的slice
+ */
+export function isCreateSliceOptions(slice: SliceOptionsItem): slice is CreateSliceOptions {
+  return ('name' in slice) && !(('actions' in slice) && ('reducer' in slice));
+}
+
+/**
+ * 判断是否是query api
+ * @param { SliceOptionsItem } slice: 通过CreateSliceOption创建的slice或者为创建完的slice
+ */
+export function isQueryApi(slice: SliceOptionsItem): slice is QueryApi {
+  return 'reducerPath' in slice;
+}
+
+/**
  * 格式化reducers
  * @param { SliceReducers } reducers: 需要格式化的reduces
  * @param { RegExp } regexp: 命名空间的正则表达式
@@ -76,7 +92,7 @@ export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): Reducers
 
     if (isSlice(item)) {
       reducersMap[item.name] = item.reducer;
-    } else if (item.name) {
+    } else if (isCreateSliceOptions(item)) {
       const options: CreateSliceOptions = { ...item };               // 创建slice的配置
       const regexp: RegExp = new RegExp(`^${ item.name }/`); // 命名空间的判断
 
@@ -88,7 +104,7 @@ export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): Reducers
       const slice: Slice = createSlice(options);
 
       reducersMap[slice.name] = slice.reducer;
-    } else if (item.reducerPath) {
+    } else if (isQueryApi(item)) {
       reducersMap[item.reducerPath] = item.reducer;
     }
   }
@@ -105,7 +121,7 @@ export function getRTKQueryMiddlewareSet(sliceOptions: Array<SliceOptionsItem> =
   const RTKQueryMiddlewareSet: Set<Middleware> = new Set();
 
   for (const item of sliceOptions) {
-    if (item?.reducerPath) {
+    if (item && isQueryApi(item)) {
       RTKQueryMiddlewareSet.add(item.middleware);
     }
   }

@@ -12,14 +12,15 @@ import type {
   ReducersMapObject
 } from '@reduxjs/toolkit';
 import type { ThunkMiddlewareFor } from '@reduxjs/toolkit/src/getDefaultMiddleware';
-import type { Api } from '@reduxjs/toolkit/query';
+import type { Api, BaseQueryFn, EndpointDefinitions } from '@reduxjs/toolkit/query';
 
 export interface IgnoreOptions {
   ignoredPaths?: Array<string>;
   ignoredActions?: Array<string>;
 }
 
-export type SliceOptionsItem = CreateSliceOptions | Slice | Api;
+export type QueryApi = Api<BaseQueryFn, EndpointDefinitions, string, string>;
+export type SliceOptionsItem = CreateSliceOptions | Slice | QueryApi;
 
 export interface RuntimeReduxToolkit<T = any> {
   initialState?: DeepPartial<T> | (() => DeepPartial<T>);
