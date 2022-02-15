@@ -67,5 +67,10 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\./options\\.ts$": "<rootDir>/test/template/options.js"
+    }
   }
 }
