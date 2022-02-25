@@ -49,7 +49,7 @@ export function isSlice(slice: SliceOptionsItem): slice is Slice {
  * @param { SliceOptionsItem } slice: 通过CreateSliceOption创建的slice或者为创建完的slice
  */
 export function isCreateSliceOptions(slice: SliceOptionsItem): slice is CreateSliceOptions {
-  return ('name' in slice) && !(('actions' in slice) && ('reducer' in slice));
+  return ('name' in slice) && !isSlice(slice);
 }
 
 /**
