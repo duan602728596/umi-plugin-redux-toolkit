@@ -30,8 +30,7 @@
     "@types/glob": "^7",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
-    "@umijs/test": "^3",
-    "@umijs/types": "^3",
+    "@umijs/test": "^4.0.0-rc.3",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
@@ -46,19 +45,19 @@
     "gulp-typescript": "^6.0.0-alpha.1",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.6",
+    "react": "rc",
+    "react-dom": "rc",
+    "react-redux": "^8.0.0-beta.3",
     "reselect": "^4.1.5",
     "rimraf": "^3.0.2",
     "typescript": "^4.5.5",
-    "umi": "^3.5.20"
+    "umi": "^4.0.0-rc.3"
   },
   "peerDependencies": {
     "@reduxjs/toolkit": ">=1",
     "react": ">=17",
     "react-dom": ">=17",
-    "umi": ">=3"
+    "umi": ">=4"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx,mjs,cjs}": "eslint"
