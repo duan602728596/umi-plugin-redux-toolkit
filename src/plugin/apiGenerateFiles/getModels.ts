@@ -1,10 +1,11 @@
 import { promisify } from 'util';
 import * as path from 'path';
-import { utils, type IApi } from 'umi';
+import { glob } from '@umijs/utils';
+import type { IApi } from 'umi';
 import type { IOptions } from 'glob';
 import { getConfig, type PluginConfig } from '../utils';
 
-const globPromise: (pattern: string, options?: IOptions) => Promise<Array<string>> = promisify(utils.glob);
+const globPromise: (pattern: string, options?: IOptions) => Promise<Array<string>> = promisify(glob);
 
 /**
  * 获取redux的目录名称

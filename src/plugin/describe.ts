@@ -9,7 +9,6 @@ import { pluginName } from './utils';
  */
 function describe(api: IApi): void {
   api.describe({
-    id: pluginName,
     key: pluginName,
     config: {
       schema(joi: typeof Joi): ObjectSchema {

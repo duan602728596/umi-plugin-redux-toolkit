@@ -1,5 +1,6 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
+import { Mustache } from '@umijs/utils';
 import type { IApi } from 'umi';
 import { getAllModels } from './getModels';
 import { optionsContent, type OptionsContentReturn } from './optionsContent';
@@ -27,8 +28,6 @@ function replaceFileName(filename: string): string {
  */
 function apiGenerateFiles(api: IApi): void {
   async function onGenerateFiles(): Promise<void> {
-    const { utils }: IApi = api;
-    const { Mustache }: typeof utils = utils;
     const config: PluginConfig | undefined = getConfig(api);
 
     /* ============= options ============= */
