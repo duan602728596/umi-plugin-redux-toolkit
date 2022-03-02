@@ -1,11 +1,10 @@
 import { createElement, ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
-import { ApplyPluginsType } from 'umi';
 import type { DeepPartial } from '@reduxjs/toolkit';
 {{{ importDynamicReducers }}}
+import { ApplyPluginsType } from 'umi';
+import { getPluginManager } from '@@/core/plugin';
 import { storeFactory, replaceReducers } from './store';
-// @ts-ignore
-import { plugin } from '../core/umiExports';
 import type { IgnoreOptions, RuntimeReduxToolkit, RuntimeReduxToolkitApply } from './types';
 
 /**
@@ -13,6 +12,7 @@ import type { IgnoreOptions, RuntimeReduxToolkit, RuntimeReduxToolkitApply } fro
  * @param { ReactNode } container: 组件
  */
 export function rootContainer(container: ReactNode): ReactElement {
+  const plugin = getPluginManager();
   const runtimeReduxToolkitApply: RuntimeReduxToolkitApply = plugin.applyPlugins({
     key: 'reduxToolkit',
     type: ApplyPluginsType.modify

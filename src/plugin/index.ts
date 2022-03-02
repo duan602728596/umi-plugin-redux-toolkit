@@ -12,7 +12,7 @@ function umiPluginReduxToolkit(api: IApi): void {
   });
 
   api.addRuntimePluginKey(function(): string[] {
-    return ['redux-toolkit'];
+    return ['reduxToolkit'];
   });
 }
 
