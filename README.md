@@ -160,5 +160,5 @@ export default dynamicReducers(model_0)(Component); // Single model
 You can get the store object in the following way:
 
 ```javascript
-import { store } from '@@/plugin-redux-toolkit/store';
+import { store } from '@@/plugin-reduxToolkit/store';
 ```

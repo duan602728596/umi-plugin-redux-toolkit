@@ -156,5 +156,5 @@ export default dynamicReducers(model_0)(Component); // 单个model
 你可以使用如下的方式获取store：
 
 ```javascript
-import { store } from '@@/plugin-redux-toolkit/store';
+import { store } from '@@/plugin-reduxToolkit/store';
 ```
