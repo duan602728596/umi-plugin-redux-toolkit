@@ -5,13 +5,11 @@ import apiGenerateFiles from './apiGenerateFiles/apiGenerateFiles';
 import { pluginName } from './utils';
 
 function umiPluginReduxToolkit(api: IApi): void {
-  const { paths }: IApi = api;
-
   describe(api);
   apiGenerateFiles(api);
 
   api.addRuntimePlugin(function(): string[] {
-    return [path.join(paths.absTmpPath!, 'plugin-redux-toolkit/runtime.tsx')];
+    return [path.join(api.paths.absTmpPath!, 'plugin-redux-toolkit/runtime.tsx')];
   });
 
   api.addRuntimePluginKey(function(): string[] {
