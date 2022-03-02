@@ -4,7 +4,6 @@ import { main } from '../../package.json';
 
 const pages = path.join(__dirname, '../src/pages');
 const config = {
-  webpack5: {},
   plugins: [path.join(__dirname, '../..', main)],
   routes: [
     {
