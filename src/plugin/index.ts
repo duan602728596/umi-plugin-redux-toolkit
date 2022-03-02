@@ -1,5 +1,4 @@
-import * as path from 'path';
-import { type IApi } from 'umi';
+import type { IApi } from 'umi';
 import describe from './describe';
 import apiGenerateFiles from './apiGenerateFiles/apiGenerateFiles';
 import { pluginName } from './utils';
@@ -9,11 +8,11 @@ function umiPluginReduxToolkit(api: IApi): void {
   apiGenerateFiles(api);
 
   api.addRuntimePlugin(function(): string[] {
-    return [path.join(api.paths.absTmpPath!, 'plugin-redux-toolkit/runtime.tsx')];
+    return [`@@/plugin-${ api.plugin.key }/runtime.tsx`];
   });
 
   api.addRuntimePluginKey(function(): string[] {
-    return ['reduxToolkit'];
+    return ['redux-toolkit'];
   });
 }
 

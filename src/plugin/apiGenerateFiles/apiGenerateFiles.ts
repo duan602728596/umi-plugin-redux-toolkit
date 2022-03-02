@@ -40,13 +40,13 @@ function apiGenerateFiles(api: IApi): void {
     });
 
     api.writeTmpFile({
-      path: 'plugin-redux-toolkit/options.ts',
+      path: 'options.ts',
       content: optionsTplContent
     });
 
     /* ============= 创建store ============= */
     api.writeTmpFile({
-      path: 'plugin-redux-toolkit/store.ts',
+      path: 'store.ts',
       content: await readTemplateFile('store.ts')
     });
 
@@ -74,19 +74,19 @@ function apiGenerateFiles(api: IApi): void {
     }
 
     api.writeTmpFile({
-      path: 'plugin-redux-toolkit/runtime.tsx',
+      path: 'runtime.tsx',
       content: runtimeTplContent
     });
 
     /* ============= 创建helpers ============= */
     api.writeTmpFile({
-      path: 'plugin-redux-toolkit/helpers.ts',
+      path: 'helpers.ts',
       content: await readTemplateFile('helpers.ts')
     });
 
     /* ============= 创建types.d.ts文件 ============= */
     api.writeTmpFile({
-      path: 'plugin-redux-toolkit/types.d.ts',
+      path: 'types.d.ts',
       content: await readTemplateFile('types.d.ts')
     });
   }
