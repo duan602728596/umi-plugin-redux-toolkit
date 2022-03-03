@@ -1,6 +1,6 @@
 export default {
   moduleNameMapper: {
-    '\\./options\\.ts$': '<rootDir>/test/template/options.js'
+    '\\./options$': '<rootDir>/test/template/options.js'
   },
   transform: {
     '\\.[jt]sx?$': ['babel-jest', {
