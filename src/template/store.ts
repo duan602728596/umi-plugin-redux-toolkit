@@ -10,7 +10,7 @@ import {
 import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
-import { ignoreOptions, sliceOptions } from './options.ts';
+import { ignoreOptions, sliceOptions } from './options';
 import { mergeIgnoreOptions, toReducers, getRTKQueryMiddlewareSet } from './helpers';
 import type {
   IgnoreOptions,
