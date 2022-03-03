@@ -17,7 +17,7 @@ import type {
   SliceOptionsItem,
   RuntimeReduxToolkit,
   GetDefaultMiddlewareOptions,
-  MiddlewareCbReturn
+  Middlewares
 } from './types';
 
 /* 创建reducer */
@@ -58,8 +58,8 @@ function createStore(runtimeReduxToolkit: RuntimeReduxToolkit = {}): void {
   };
 
   // 中间件
-  options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): MiddlewareCbReturn {
-    let allMiddlewares: MiddlewareCbReturn
+  options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): Middlewares {
+    let allMiddlewares: Middlewares
       = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
 
     // 添加RTK的中间件
