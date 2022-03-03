@@ -42,7 +42,7 @@ function dynamicReducers<T = Record<string, any>>(sliceOptions: SliceOptions): A
       const context: DynamicReducersContextType = useContext(DynamicReducersContext);
 
       if (injectModels) {
-        useMemo(function() {
+        useMemo(function(): void {
           context?.replaceReducers?.(formatSliceOptions(sliceOptions));
           injectModels = false;
         }, []);
