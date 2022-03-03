@@ -32,4 +32,6 @@ test
 
 gulpfile.js
 gulpfile.mjs
+jest.config.mjs
+jest.config.js
 tsconfig.json

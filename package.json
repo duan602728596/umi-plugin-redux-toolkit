@@ -1,6 +1,6 @@
 {
   "name": "umi-plugin-redux-toolkit",
-  "version": "1.4.4",
+  "version": "2.0.0",
   "license": "MIT",
   "homepage": "https://github.com/duan602728596/umi-plugin-redux-toolkit",
   "main": "dist/plugin/cjs.js",
@@ -16,7 +16,7 @@
     "start": "rimraf ./dist && cross-env NODE_ENV=development gulp",
     "build": "rimraf ./dist && cross-env NODE_ENV=production gulp",
     "dev": "cross-env APP_ROOT=example umi dev",
-    "test": "cross-env TEST=1 umi-test",
+    "test": "cross-env TEST=1 jest test",
     "eslint": "eslint ./ --fix",
     "eslint:no-fix": "eslint ./"
   },
@@ -26,12 +26,10 @@
     "@hapi/joi": "^17",
     "@reduxjs/toolkit": "^1.7.2",
     "@sweet-milktea/babel-preset-sweet": "^3.1.9",
-    "@sweet-milktea/utils": "^3.0.2",
     "@types/glob": "^7",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
-    "@umijs/test": "^3",
-    "@umijs/types": "^3",
+    "babel-jest": "^27.5.1",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
@@ -45,20 +43,21 @@
     "gulp-plumber": "^1.2.1",
     "gulp-typescript": "^6.0.0-alpha.1",
     "husky": "^7.0.4",
+    "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.6",
+    "react": "rc",
+    "react-dom": "rc",
+    "react-redux": "^8.0.0-beta.3",
     "reselect": "^4.1.5",
     "rimraf": "^3.0.2",
     "typescript": "^4.5.5",
-    "umi": "^3.5.20"
+    "umi": "^4.0.0-rc.3"
   },
   "peerDependencies": {
     "@reduxjs/toolkit": ">=1",
     "react": ">=17",
     "react-dom": ">=17",
-    "umi": ">=3"
+    "umi": ">=4"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx,mjs,cjs}": "eslint"
@@ -66,11 +65,6 @@
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
-    }
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "\\./options\\.ts$": "<rootDir>/test/template/options.js"
     }
   }
 }

@@ -6,12 +6,10 @@ import type {
   DeepPartial,
   ImmutableStateInvariantMiddlewareOptions,
   SerializableStateInvariantMiddlewareOptions,
-  MiddlewareArray,
   Middleware,
   ValidateSliceCaseReducers,
   ReducersMapObject
 } from '@reduxjs/toolkit';
-import type { ThunkMiddlewareFor } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 import type { Api, BaseQueryFn, EndpointDefinitions } from '@reduxjs/toolkit/query';
 
 export interface IgnoreOptions {
@@ -38,9 +36,6 @@ export interface GetDefaultMiddlewareOptions {
   serializableCheck?: SerializableStateInvariantMiddlewareOptions;
 }
 
-export type MiddlewareCbReturn = MiddlewareArray<
-  Middleware<{}, any>
-  | ThunkMiddlewareFor<any, GetDefaultMiddlewareOptions>
->;
+export type Middlewares = ReadonlyArray<Middleware<{}, any>>;
 
 export type SliceReducers = ValidateSliceCaseReducers<any, SliceCaseReducers<any>>;

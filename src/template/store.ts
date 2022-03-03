@@ -10,14 +10,14 @@ import {
 import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
-import { ignoreOptions, sliceOptions } from './options.ts';
+import { ignoreOptions, sliceOptions } from './options';
 import { mergeIgnoreOptions, toReducers, getRTKQueryMiddlewareSet } from './helpers';
 import type {
   IgnoreOptions,
   SliceOptionsItem,
   RuntimeReduxToolkit,
   GetDefaultMiddlewareOptions,
-  MiddlewareCbReturn
+  Middlewares
 } from './types';
 
 /* 创建reducer */
@@ -58,8 +58,8 @@ function createStore(runtimeReduxToolkit: RuntimeReduxToolkit = {}): void {
   };
 
   // 中间件
-  options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): MiddlewareCbReturn {
-    let allMiddlewares: MiddlewareCbReturn
+  options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): Middlewares {
+    let allMiddlewares: Middlewares
       = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
 
     // 添加RTK的中间件
