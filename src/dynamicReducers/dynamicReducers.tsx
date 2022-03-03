@@ -1,5 +1,12 @@
-import { createElement, useMemo, useContext, ReactElement, FunctionComponent, ClassicComponentClass } from 'react';
-import DynamicReducersContext, { DynamicReducersContextType } from './DynamicReducersContext';
+import {
+  createElement,
+  useMemo,
+  useContext,
+  type ReactElement,
+  type FunctionComponent,
+  type ClassicComponentClass
+} from 'react';
+import DynamicReducersContext, { type DynamicReducersContextType } from './DynamicReducersContext';
 import type { SliceOptionsItem } from '../template/types';
 
 interface AsyncLoadReducersComponent<T> {
