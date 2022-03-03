@@ -16,7 +16,7 @@
     "start": "rimraf ./dist && cross-env NODE_ENV=development gulp",
     "build": "rimraf ./dist && cross-env NODE_ENV=production gulp",
     "dev": "cross-env APP_ROOT=example umi dev",
-    "test": "cross-env TEST=1 umi-test",
+    "test": "cross-env TEST=1 jest test",
     "eslint": "eslint ./ --fix",
     "eslint:no-fix": "eslint ./"
   },
@@ -30,7 +30,7 @@
     "@types/glob": "^7",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
-    "@umijs/test": "^4.0.0-rc.3",
+    "babel-jest": "^27.5.1",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
@@ -44,6 +44,7 @@
     "gulp-plumber": "^1.2.1",
     "gulp-typescript": "^6.0.0-alpha.1",
     "husky": "^7.0.4",
+    "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
     "react": "rc",
     "react-dom": "rc",
@@ -65,11 +66,6 @@
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
-    }
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "\\./options\\.ts$": "<rootDir>/test/template/options.js"
     }
   }
 }
