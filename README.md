@@ -2,7 +2,7 @@
 
 [中文文档](README_zhCN.md)
 
-The plugin of umi3 uses @reduxjs/toolkit.
+The plugin of umi@4 uses @reduxjs/toolkit.
 
 ## Install
 
@@ -127,8 +127,8 @@ export function reduxToolkit() {
     initialState: () => ({}), // It can also be a function to initialize the value of redux
     ignoreOptions: {},        // Same as the ignoreOptions configuration above, it will be merged
     warnAfter: 800,           // If the check time of immutableCheck and serializableCheck exceeds 32ms, there will be a warning. Modify the warning time
-    reducers: {},        // Custom add reducers
-    middlewares: [],     // Custom add middlewares
+    reducers: {},             // Custom add reducers
+    middlewares: [],          // Custom add middlewares
     treatStore(store) {}      // Allows you to perform other processing on the store, such as mounting some monitoring methods
   };
 }
@@ -151,7 +151,7 @@ function Component(props) {
 }
 
 export default dynamicReducers([model_0, model_1])(Component); // Multiple models pass array
-// 或
+// or
 export default dynamicReducers(model_0)(Component); // Single model
 ```
 
