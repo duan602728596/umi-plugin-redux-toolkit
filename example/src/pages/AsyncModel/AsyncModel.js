@@ -19,7 +19,7 @@ function AsyncModel(props) {
 
   return (
     <div>
-      <h4>异步加载reducers</h4>
+      <h2>Load reducers asynchronously</h2>
       <p>
         <span className={ style.number }>{ number }</span>
         <button type="button" onClick={ handleAddClick }>add</button>

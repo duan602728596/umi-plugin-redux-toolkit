@@ -1,55 +1,26 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import style from '../style.less';
-import { requestList } from '../models';
-import { setAddNumber } from '../models/add';
+import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import style from './index.css';
 
-/* redux selector */
-const selector = createStructuredSelector({
-  dataList: ({ index }) => index.dataList,
-  number: ({ add }) => add.number
-});
-
+/* Demo Index */
 function Index(props) {
-  const { dataList, number } = useSelector(selector);
-  const dispatch = useDispatch();
-
-  function handleAddClick(event) {
-    dispatch(setAddNumber());
-  }
-
-  function listRender() {
-    return dataList.map((item, index) => {
-      return (
-        <tr key={ item.id }>
-          <td>{ item.id }</td>
-          <td>{ item.name }</td>
-        </tr>
-      );
-    });
-  }
-
-  useEffect(function() {
-    dispatch(requestList());
-  }, []);
-
   return (
-    <div className={ style.content }>
-      <table className={ style.table }>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>{ listRender() }</tbody>
-      </table>
-      <p>
-        <span className={ style.number }>{ number }</span>
-        <button type="button" onClick={ handleAddClick }>add</button>
-      </p>
-    </div>
+    <Fragment>
+      <h1>umi-plugin-redux-toolkit Demo</h1>
+      <nav>
+        <ul>
+          <li>
+            <Link className={ style.link } to="/List">List</Link>
+          </li>
+          <li>
+            <Link className={ style.link } to="/AsyncModel">Async Model</Link>
+          </li>
+          <li>
+            <Link className={ style.link } to="/RTKQuery">RTK Query</Link>
+          </li>
+        </ul>
+      </nav>
+    </Fragment>
   );
 }
 

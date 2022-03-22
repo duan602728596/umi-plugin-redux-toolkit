@@ -7,11 +7,15 @@ const config = {
   plugins: [path.join(__dirname, '../..', main)],
   routes: [
     {
-      path: '/index',
+      path: '/',
       component: path.join(pages, 'Index/index.js')
     },
     {
-      path: '/asyncModel',
+      path: '/List',
+      component: path.join(pages, 'List/index.js')
+    },
+    {
+      path: '/AsyncModel',
       component: path.join(pages, 'AsyncModel/AsyncModel.js')
     },
     {
