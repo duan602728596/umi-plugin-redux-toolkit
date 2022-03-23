@@ -61,7 +61,7 @@ function createStore(runtimeReduxToolkit: RuntimeReduxToolkit = {}): void {
   options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): Middlewares {
     let allMiddlewares: Middlewares = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
 
-    // 添加RTK的中间件
+    // RTKQuery和listenerMiddleware的中间件
     if (middlewareSet.size > 0) {
       allMiddlewares = allMiddlewares.concat(Array.from<Middleware>(middlewareSet));
     }
