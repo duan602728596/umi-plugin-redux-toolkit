@@ -105,7 +105,8 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
  * @param { Array<SliceOptionsItem> } asyncSliceOptions: 将要合并的slice配置
  */
 export function replaceReducers(asyncSliceOptions: Array<SliceOptionsItem>): void {
-  const asyncProcessedReducers: ReducersMapObject = toReducers(asyncSliceOptions); // 已经格式化完毕的，将要合并的reducers配置
+  // 已经格式化完毕的，将要合并的reducers配置
+  const asyncProcessedReducers: ReducersMapObject = toReducers(asyncSliceOptions);
 
   Object.assign(processedReducers, asyncProcessedReducers);
   store.replaceReducer(combineReducers(processedReducers));
