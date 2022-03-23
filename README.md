@@ -2,7 +2,7 @@
 
 [中文文档](README_zhCN.md)
 
-The plugin of umi3 uses @reduxjs/toolkit.
+The plugin of umi@3 uses @reduxjs/toolkit.
 
 ## Install
 
@@ -46,7 +46,7 @@ export default {
 
 Create the `models` folder, create a ts or js file under the folder, and export the slice created by createSlice, or the configuration of createSlice.   
 Export slice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/src/pages/models/add.js),
-Export the configuration of createSlice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/src/pages/models/index.js).   
+Export the configuration of createSlice [Reference](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/src/pages/models/list.js).
 
 ```javascript
 import { createSlice } from '@redux/toolkit';
@@ -106,6 +106,24 @@ export const { useGetDataQuery } = api;
 export default api;
 ```
 
+Exporting listenerMiddleware is now also supported. E.g:
+
+```javascript
+import { createListenerMiddleware } from '@reduxjs/toolkit';
+import { setAction } from './actions';
+
+const listenerMiddleware = createListenerMiddleware();
+
+listenerMiddleware.startListening({
+  actionCreator: setAction,
+  effect(action, listenerApi) {
+    console.log('Listener: setAction');
+  }
+});
+
+export default listenerMiddleware;
+```
+
 ## Initial value
 
 Export in app.js
@@ -127,8 +145,8 @@ export function reduxToolkit() {
     initialState: () => ({}), // It can also be a function to initialize the value of redux
     ignoreOptions: {},        // Same as the ignoreOptions configuration above, it will be merged
     warnAfter: 800,           // If the check time of immutableCheck and serializableCheck exceeds 32ms, there will be a warning. Modify the warning time
-    reducers: {},        // Custom add reducers
-    middlewares: [],     // Custom add middlewares
+    reducers: {},             // Custom add reducers
+    middlewares: [],          // Custom add middlewares
     treatStore(store) {}      // Allows you to perform other processing on the store, such as mounting some monitoring methods
   };
 }
@@ -137,7 +155,7 @@ export function reduxToolkit() {
 ## Asynchronous injection of reducers
 
 The `*.async.{js,jsx,ts,tsx}` files in the models folder will be considered as asynchronously injected reducers and will not be automatically loaded.   
-Configure `asyncLoadReducers: true` to enable asynchronous injection of reducers.   
+Configure `asyncLoadReducers: true` to enable asynchronous injection of reducers.
 
 Api created by RTK RTKQuery cannot be loaded asynchronously because it needs to add middleware.
 
@@ -147,11 +165,11 @@ import model_0 from './models/model_0';
 import model_1 from './models/model_1';
 
 function Component(props) {
- return <div />;
+  return <div />;
 }
 
 export default dynamicReducers([model_0, model_1])(Component); // Multiple models pass array
-// 或
+// or
 export default dynamicReducers(model_0)(Component); // Single model
 ```
 

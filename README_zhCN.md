@@ -42,7 +42,7 @@ export default {
 
 创建`models`文件夹，在文件夹下创建ts或js文件，导出通过createSlice创建的slice，或createSlice的配置。   
 导出slice[参考](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/src/pages/models/add.js)，
-导出createSlice的配置[参考](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/src/pages/models/index.js)。   
+导出createSlice的配置[参考](https://github.com/duan602728596/umi-plugin-redux-toolkit/blob/main/example/src/pages/models/list.js)。
 
 ```javascript
 import { createSlice } from '@redux/toolkit';
@@ -102,6 +102,24 @@ export const { useGetDataQuery } = api;
 export default api;
 ```
 
+现在还支持导出 listenerMiddleware。例如：
+
+```javascript
+import { createListenerMiddleware } from '@reduxjs/toolkit';
+import { setAction } from './actions';
+
+const listenerMiddleware = createListenerMiddleware();
+
+listenerMiddleware.startListening({
+  actionCreator: setAction,
+  effect(action, listenerApi) {
+    console.log('Listener: setAction');
+  }
+});
+
+export default listenerMiddleware;
+```
+
 ## 初始值
 
 在app.js内导出
@@ -116,15 +134,15 @@ export const reduxToolkit = {
   treatStore(store) {} // 可以让你对store进行其他处理，比如挂载一些监听的方法
 };
 
-// or
+// 或
 
 export function reduxToolkit() {
   return {
     initialState: () => ({}), // 也可以是一个函数来初始化redux的值
     ignoreOptions: {},        // 同上面的ignoreOptions配置，会做合并处理
     warnAfter: 800,           // immutableCheck和serializableCheck的检查时间超过32ms会有警告，修改警告时间
-    reducers: {},        // 自定义添加reducers
-    middlewares: [],     // 自定义添加middlewares
+    reducers: {},             // 自定义添加reducers
+    middlewares: [],          // 自定义添加middlewares
     treatStore(store) {}      // 可以让你对store进行其他处理，比如挂载一些监听的方法
   };
 }
@@ -133,7 +151,7 @@ export function reduxToolkit() {
 ## 异步注入reducers
 
 models文件夹中的`*.async.{js,jsx,ts,tsx}`文件会被认为是异步注入的reducers，不会被自动加载。   
-配置`asyncLoadReducers: true`开启异步注入reducers功能。   
+配置`asyncLoadReducers: true`开启异步注入reducers功能。
 
 通过RTK Query创建的Api无法被异步加载，因为它需要添加middleware.
 
@@ -143,7 +161,7 @@ import model_0 from './models/model_0';
 import model_1 from './models/model_1';
 
 function Component(props) {
- return <div />;
+  return <div />;
 }
 
 export default dynamicReducers([model_0, model_1])(Component); // 多个model传递数组
