@@ -121,8 +121,8 @@ export function getRTKQueryMiddlewareSet(sliceOptions: Array<SliceOptionsItem> =
   const RTKQueryMiddlewareSet: Set<Middleware> = new Set();
 
   for (const item of sliceOptions) {
-    if (item && isQueryApi(item)) {
-      RTKQueryMiddlewareSet.add(item.middleware);
+    if (item && item['middleware'] && typeof item['middleware'] === 'function') {
+      RTKQueryMiddlewareSet.add(item['middleware']);
     }
   }
 
