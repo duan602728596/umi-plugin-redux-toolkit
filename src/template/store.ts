@@ -11,19 +11,19 @@ import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaul
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import { ignoreOptions, sliceOptions } from './options.ts';
-import { mergeIgnoreOptions, toReducers, getRTKQueryMiddlewareSet } from './helpers';
+import { mergeIgnoreOptions, toReducers, getMiddlewaresSet } from './helpers';
 import type {
   IgnoreOptions,
   SliceOptionsItem,
   RuntimeReduxToolkit,
   GetDefaultMiddlewareOptions,
-  MiddlewareCbReturn
+  Middlewares
 } from './types';
 
 /* 创建reducer */
 const processedReducers: ReducersMapObject = toReducers(sliceOptions); // 已经格式化完毕的reducers配置
 const reducer: Reducer = combineReducers(processedReducers);
-const RTKQueryMiddlewareSet: Set<Middleware> = getRTKQueryMiddlewareSet(sliceOptions); // RTKQuery的中间件
+const middlewareSet: Set<Middleware> = getMiddlewaresSet(sliceOptions); // RTKQuery和listenerMiddleware的中间件
 
 /* store */
 export let store: Store;
@@ -58,13 +58,12 @@ function createStore(runtimeReduxToolkit: RuntimeReduxToolkit = {}): void {
   };
 
   // 中间件
-  options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): MiddlewareCbReturn {
-    let allMiddlewares: MiddlewareCbReturn
-      = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
+  options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): Middlewares {
+    let allMiddlewares: Middlewares = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
 
     // 添加RTK的中间件
-    if (RTKQueryMiddlewareSet.size > 0) {
-      allMiddlewares = allMiddlewares.concat(Array.from<Middleware>(RTKQueryMiddlewareSet));
+    if (middlewareSet.size > 0) {
+      allMiddlewares = allMiddlewares.concat(Array.from<Middleware>(middlewareSet));
     }
 
     // 添加自定义的中间件
