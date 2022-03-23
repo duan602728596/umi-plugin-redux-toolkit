@@ -36,6 +36,6 @@ export interface GetDefaultMiddlewareOptions {
   serializableCheck?: SerializableStateInvariantMiddlewareOptions;
 }
 
-export type Middlewares = ReadonlyArray<Middleware<{}, any>>;
+export type Middlewares = ReadonlyArray<Middleware>;
 
 export type SliceReducers = ValidateSliceCaseReducers<any, SliceCaseReducers<any>>;

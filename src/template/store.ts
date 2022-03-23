@@ -11,7 +11,7 @@ import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaul
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import { ignoreOptions, sliceOptions } from './options';
-import { mergeIgnoreOptions, toReducers, getRTKQueryMiddlewareSet } from './helpers';
+import { mergeIgnoreOptions, toReducers, getMiddlewareSet } from './helpers';
 import type {
   IgnoreOptions,
   SliceOptionsItem,
@@ -23,7 +23,7 @@ import type {
 /* 创建reducer */
 const processedReducers: ReducersMapObject = toReducers(sliceOptions); // 已经格式化完毕的reducers配置
 const reducer: Reducer = combineReducers(processedReducers);
-const RTKQueryMiddlewareSet: Set<Middleware> = getRTKQueryMiddlewareSet(sliceOptions); // RTKQuery的中间件
+const middlewareSet: Set<Middleware> = getMiddlewareSet(sliceOptions); // RTKQuery和listenerMiddleware的中间件
 
 /* store */
 export let store: Store;
@@ -62,9 +62,9 @@ function createStore(runtimeReduxToolkit: RuntimeReduxToolkit = {}): void {
     let allMiddlewares: Middlewares
       = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
 
-    // 添加RTK的中间件
-    if (RTKQueryMiddlewareSet.size > 0) {
-      allMiddlewares = allMiddlewares.concat(Array.from<Middleware>(RTKQueryMiddlewareSet));
+    // RTKQuery和listenerMiddleware的中间件
+    if (middlewareSet.size > 0) {
+      allMiddlewares = allMiddlewares.concat(Array.from<Middleware>(middlewareSet));
     }
 
     // 添加自定义的中间件
@@ -106,7 +106,8 @@ export function storeFactory(runtimeReduxToolkit: RuntimeReduxToolkit = {}): Sto
  * @param { Array<SliceOptionsItem> } asyncSliceOptions: 将要合并的slice配置
  */
 export function replaceReducers(asyncSliceOptions: Array<SliceOptionsItem>): void {
-  const asyncProcessedReducers: ReducersMapObject = toReducers(asyncSliceOptions); // 已经格式化完毕的，将要合并的reducers配置
+  // 已经格式化完毕的，将要合并的reducers配置
+  const asyncProcessedReducers: ReducersMapObject = toReducers(asyncSliceOptions);
 
   Object.assign(processedReducers, asyncProcessedReducers);
   store.replaceReducer(combineReducers(processedReducers));
