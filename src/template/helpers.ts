@@ -61,6 +61,14 @@ export function isQueryApi(slice: SliceOptionsItem): slice is QueryApi {
 }
 
 /**
+ * 判断是否是object
+ * @param { any } value
+ */
+export function isObject(value: any): boolean {
+  return Object.prototype.toString.call(value) === '[object Object]';
+}
+
+/**
  * 格式化reducers
  * @param { SliceReducers } reducers: 需要格式化的reduces
  * @param { RegExp } regexp: 命名空间的正则表达式
@@ -121,7 +129,8 @@ export function getRTKQueryMiddlewareSet(sliceOptions: Array<SliceOptionsItem> =
   const RTKQueryMiddlewareSet: Set<Middleware> = new Set();
 
   for (const item of sliceOptions) {
-    if (item && item['middleware'] && typeof item['middleware'] === 'function') {
+    // 添加中间件，中间件的来源可能是RTK Query或者listenerMiddleware
+    if (item && isObject(item) && item?.['middleware'] && typeof item['middleware'] === 'function') {
       RTKQueryMiddlewareSet.add(item['middleware']);
     }
   }
