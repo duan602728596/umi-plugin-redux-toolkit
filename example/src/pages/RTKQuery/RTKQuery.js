@@ -1,4 +1,4 @@
-import { useGetMockDataQuery } from '../models/RTKQuery';
+import { useGetMockDataQuery } from '../models/RTKQuery.api';
 import style from '../style.less';
 
 function RTKQuery(props) {

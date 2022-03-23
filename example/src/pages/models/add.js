@@ -1,6 +1,5 @@
-import { createSlice, createListenerMiddleware } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const addListenerMiddleware = createListenerMiddleware();
 const slice = createSlice({
   name: 'add',
   initialState: {
@@ -16,12 +15,5 @@ const slice = createSlice({
 });
 
 export const { setAddNumber } = slice.actions;
-
-addListenerMiddleware.startListening({
-  actionCreator: setAddNumber,
-  effect(action, listenerApi) {
-    listenerApi.cancelActiveListeners();
-  }
-});
 
 export default slice;

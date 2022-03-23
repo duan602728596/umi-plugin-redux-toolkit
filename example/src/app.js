@@ -1,5 +1,3 @@
-import { addListenerMiddleware } from './pages/models/add';
-
 export const reduxToolkit = {
   initialState: {
     list: {
@@ -9,6 +7,5 @@ export const reduxToolkit = {
   ignoreOptions: {
     ignoredPaths: ['login.loginList'],
     ignoredActions: ['login/setLoginList']
-  },
-  middlewares: [addListenerMiddleware.middleware]
+  }
 };
