@@ -1,6 +1,6 @@
 export const reduxToolkit = {
   initialState: {
-    index: {
+    list: {
       dataList: [{ id: '3', name: '姜维' }]
     }
   },

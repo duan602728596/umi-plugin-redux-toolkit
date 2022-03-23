@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // mockDate
-const res = [
+const resMock = [
   { id: '0', name: '关羽' },
   { id: '1', name: '刘备' },
   { id: '2', name: '夏侯惇' }
@@ -16,11 +16,11 @@ function sleep(time) {
 export const requestList = createAsyncThunk('index/requestList', async function() {
   await sleep(3000);
 
-  return res;
+  return resMock;
 });
 
 export default {
-  name: 'index',
+  name: 'list',
   initialState: {
     dataList: []
   },
