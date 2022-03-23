@@ -11,7 +11,7 @@ import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaul
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import { ignoreOptions, sliceOptions } from './options.ts';
-import { mergeIgnoreOptions, toReducers, getMiddlewaresSet } from './helpers';
+import { mergeIgnoreOptions, toReducers, getMiddlewareSet } from './helpers';
 import type {
   IgnoreOptions,
   SliceOptionsItem,
@@ -23,7 +23,7 @@ import type {
 /* 创建reducer */
 const processedReducers: ReducersMapObject = toReducers(sliceOptions); // 已经格式化完毕的reducers配置
 const reducer: Reducer = combineReducers(processedReducers);
-const middlewareSet: Set<Middleware> = getMiddlewaresSet(sliceOptions); // RTKQuery和listenerMiddleware的中间件
+const middlewareSet: Set<Middleware> = getMiddlewareSet(sliceOptions); // RTKQuery和listenerMiddleware的中间件
 
 /* store */
 export let store: Store;

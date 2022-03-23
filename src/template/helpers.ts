@@ -125,7 +125,7 @@ export function toReducers(sliceOptions: Array<SliceOptionsItem> = []): Reducers
  * @param { Array<SliceOptionsItem> } sliceOptions: slice或者创建slice的配置
  * @return { Set<Middleware> }
  */
-export function getMiddlewaresSet(sliceOptions: Array<SliceOptionsItem> = []): Set<Middleware> {
+export function getMiddlewareSet(sliceOptions: Array<SliceOptionsItem> = []): Set<Middleware> {
   const middlewareSet: Set<Middleware> = new Set();
 
   for (const item of sliceOptions) {
