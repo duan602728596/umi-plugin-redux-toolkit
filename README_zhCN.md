@@ -102,6 +102,24 @@ export const { useGetDataQuery } = api;
 export default api;
 ```
 
+现在还支持导出 listenerMiddleware。例如：
+
+```javascript
+import { createListenerMiddleware } from '@reduxjs/toolkit';
+import { setAction } from './actions';
+
+const listenerMiddleware = createListenerMiddleware();
+
+listenerMiddleware.startListening({
+  actionCreator: setAction,
+  effect(action, listenerApi) {
+    console.log('Listener: setAction');
+  }
+});
+
+export default listenerMiddleware;
+```
+
 ## 初始值
 
 在app.js内导出

@@ -106,6 +106,24 @@ export const { useGetDataQuery } = api;
 export default api;
 ```
 
+Exporting listenerMiddleware is now also supported. E.g:
+
+```javascript
+import { createListenerMiddleware } from '@reduxjs/toolkit';
+import { setAction } from './actions';
+
+const listenerMiddleware = createListenerMiddleware();
+
+listenerMiddleware.startListening({
+  actionCreator: setAction,
+  effect(action, listenerApi) {
+    console.log('Listener: setAction');
+  }
+});
+
+export default listenerMiddleware;
+```
+
 ## Initial value
 
 Export in app.js
