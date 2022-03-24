@@ -65,7 +65,7 @@ export function isQueryApi(slice: SliceOptionsItem): slice is QueryApi {
  * @param { any } value
  */
 export function isObject(value: any): boolean {
-  return Object.prototype.toString.call(value) === '[object Object]';
+  return typeof value === 'object' && Object.prototype.toString.call(value) === '[object Object]';
 }
 
 /**
