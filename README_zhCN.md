@@ -124,7 +124,7 @@ export default listenerMiddleware;
 
 在app.js内导出
 
-```
+```javascript
 export const reduxToolkit = {
   initialState: {},    // 初始化redux的值
   ignoreOptions: {},   // 同上面的ignoreOptions配置，会做合并处理

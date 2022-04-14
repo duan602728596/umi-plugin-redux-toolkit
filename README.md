@@ -128,7 +128,7 @@ export default listenerMiddleware;
 
 Export in app.js
 
-```
+```javascript
 export const reduxToolkit = {
   initialState: {},    // Initialize the value of redux
   ignoreOptions: {},   // Same as the ignoreOptions configuration above, it will be merged
