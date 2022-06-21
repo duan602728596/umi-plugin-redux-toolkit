@@ -15,14 +15,6 @@ async function readTemplateFile(file: string): Promise<string> {
 }
 
 /**
- * 替换文件名
- * @param { string } filename: 文件名
- */
-function replaceFileName(filename: string): string {
-  return filename.replace(/[~`!@#$%^&*()\-+={}\[\]\\|<>?/,\.]/ig, '_');
-}
-
-/**
  * api.onGenerateFiles
  * @param { IApi } api: umi api方法
  */
