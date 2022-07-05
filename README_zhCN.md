@@ -2,13 +2,17 @@
 
 umi@4的插件，使用@reduxjs/toolkit。
 
-## 安装
+## 安装和使用
+
+如果你想使用插件，首先需要安装。
 
 ```
 yarn add umi-plugin-redux-toolkit @reduxjs/toolkit
 // or
 npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 ```
+
+安装后，你可能需要[启用插件](https://umijs.org/docs/guides/plugins#%E5%90%AF%E7%94%A8%E6%8F%92%E4%BB%B6)。
 
 ## 配置
 

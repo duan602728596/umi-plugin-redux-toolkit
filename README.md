@@ -4,13 +4,17 @@
 
 The plugin of umi@4 uses @reduxjs/toolkit.
 
-## Install
+## Install and use
+
+If you want to use plugin, you must install first.
 
 ```
 yarn add umi-plugin-redux-toolkit @reduxjs/toolkit
 // or
 npm install umi-plugin-redux-toolkit @reduxjs/toolkit
 ```
+
+Finish installed, you may [enable the plugin](https://umijs.org/docs/guides/plugins#%E5%90%AF%E7%94%A8%E6%8F%92%E4%BB%B6).
 
 ## Configuration
 
