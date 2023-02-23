@@ -24,7 +24,7 @@
     "@babel/core": "^7.21.0",
     "@babel/eslint-parser": "^7.19.1",
     "@hapi/joi": "^17",
-    "@reduxjs/toolkit": "^1.9.3",
+    "@reduxjs/toolkit": "^2.0.0-alpha.2",
     "@sweet-milktea/babel-preset-sweet": "^4.0.1",
     "@types/glob": "^7",
     "@typescript-eslint/eslint-plugin": "^5.53.0",

@@ -1,6 +1,5 @@
 import { createElement, ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
-import type { DeepPartial } from '@reduxjs/toolkit';
 {{{ importDynamicReducers }}}
 import { ApplyPluginsType, PluginManager } from 'umi';
 import { getPluginManager } from '@@/core/plugin';
