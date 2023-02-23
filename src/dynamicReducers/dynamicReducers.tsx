@@ -37,7 +37,7 @@ function dynamicReducers<T = Record<string, any>>(sliceOptions: SliceOptions): A
    * @param { FunctionComponent | ClassicComponent } Module: 需要修饰的模块
    * @return { FunctionComponent }
    */
-  return function(Module: FunctionComponent | ClassicComponentClass): FunctionComponent {
+  return function(Module: FunctionComponent | ClassicComponentClass): FunctionComponent<T> {
     return function(props: T): ReactElement {
       const context: DynamicReducersContextType = useContext(DynamicReducersContext);
 
@@ -48,7 +48,7 @@ function dynamicReducers<T = Record<string, any>>(sliceOptions: SliceOptions): A
         }, []);
       }
 
-      return createElement(Module, { ...props });
+      return createElement(Module, { ...(props ?? {}) });
     };
   };
 }
