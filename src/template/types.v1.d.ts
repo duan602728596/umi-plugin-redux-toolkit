@@ -3,17 +3,14 @@ import type {
   CreateSliceOptions,
   Slice,
   SliceCaseReducers,
+  DeepPartial,
   ImmutableStateInvariantMiddlewareOptions,
   SerializableStateInvariantMiddlewareOptions,
   Middleware,
   ValidateSliceCaseReducers,
   ReducersMapObject
 } from '@reduxjs/toolkit';
-import type { NoInfer } from '@reduxjs/toolkit/src/tsHelpers';
-import type { PreloadedState, CombinedState } from 'redux';
 import type { Api, BaseQueryFn, EndpointDefinitions } from '@reduxjs/toolkit/query';
-
-type InitialState<S = any> = PreloadedState<CombinedState<NoInfer<S>>>;
 
 export interface IgnoreOptions {
   ignoredPaths?: Array<string>;
@@ -24,7 +21,7 @@ export type QueryApi = Api<BaseQueryFn, EndpointDefinitions, string, string>;
 export type SliceOptionsItem = CreateSliceOptions | Slice | QueryApi;
 
 export interface RuntimeReduxToolkit<T = any> {
-  initialState?: InitialState<T> | (() => InitialState<T>);
+  initialState?: DeepPartial<T> | (() => DeepPartial<T>);
   ignoreOptions?: IgnoreOptions;
   warnAfter?: number;
   reducers?: ReducersMapObject;

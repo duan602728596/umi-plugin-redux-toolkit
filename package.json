@@ -66,5 +66,8 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "semver": "^7.3.8"
   }
 }

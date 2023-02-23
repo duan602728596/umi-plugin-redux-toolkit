@@ -1,7 +1,9 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
 import { Mustache } from '@umijs/utils';
+import { coerce, type SemVer } from 'semver';
 import type { IApi } from 'umi';
+import * as reduxToolkitJson from '@reduxjs/toolkit/package.json';
 import { getAllModels } from './getModels';
 import { optionsContent, type OptionsContentReturn } from './optionsContent';
 import { getConfig, type PluginConfig } from '../utils';
@@ -23,6 +25,8 @@ function apiGenerateFiles(api: IApi): void {
     const config: PluginConfig | undefined = getConfig(api);
 
     /* ============= options ============= */
+    const reduxToolkitSemVer: SemVer | null = coerce(reduxToolkitJson.version);
+    const isV2ReduxToolkit: boolean = !!(reduxToolkitSemVer && reduxToolkitSemVer.major === 2);
     const models: Array<string> = await getAllModels(api); // 获取models中的文件
     const { importContent, sliceContent }: OptionsContentReturn = optionsContent(models, config?.esModule);
     const optionsTplContent: string = Mustache.render(await readTemplateFile('options.ts.tpl'), {
@@ -79,7 +83,7 @@ function apiGenerateFiles(api: IApi): void {
     /* ============= 创建types.d.ts文件 ============= */
     api.writeTmpFile({
       path: 'types.d.ts',
-      content: await readTemplateFile('types.d.ts')
+      content: await readTemplateFile(isV2ReduxToolkit ? 'types.d.ts' : 'types.v1.d.ts')
     });
   }
 
