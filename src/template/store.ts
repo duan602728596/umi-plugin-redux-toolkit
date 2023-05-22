@@ -7,7 +7,7 @@ import {
   ConfigureStoreOptions,
   Middleware
 } from '@reduxjs/toolkit';
-import type { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
+import type { GetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import { ignoreOptions, sliceOptions } from './options';
@@ -58,7 +58,7 @@ function createStore(runtimeReduxToolkit: RuntimeReduxToolkit = {}): void {
   };
 
   // 中间件
-  options.middleware = function(getDefaultMiddleware: CurriedGetDefaultMiddleware): Middlewares {
+  options.middleware = function(getDefaultMiddleware: GetDefaultMiddleware): Middlewares {
     let allMiddlewares: Middlewares
       = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
 
