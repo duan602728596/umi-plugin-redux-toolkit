@@ -2,12 +2,12 @@ import type {
   Store,
   CreateSliceOptions,
   Slice,
-  SliceCaseReducers,
   ImmutableStateInvariantMiddlewareOptions,
   SerializableStateInvariantMiddlewareOptions,
   Middleware,
   ValidateSliceCaseReducers,
-  ReducersMapObject
+  ReducersMapObject,
+  ReducerCreators
 } from '@reduxjs/toolkit';
 import type { Api, BaseQueryFn, EndpointDefinitions } from '@reduxjs/toolkit/query';
 
@@ -35,6 +35,4 @@ export interface GetDefaultMiddlewareOptions {
   serializableCheck?: SerializableStateInvariantMiddlewareOptions;
 }
 
-export type Middlewares = ReadonlyArray<Middleware>;
-
-export type SliceReducers = ValidateSliceCaseReducers<any, SliceCaseReducers<any>>;
+export type SliceReducers = ValidateSliceCaseReducers<any, any> | ((creators: ReducerCreators<any>) => any);

@@ -8,6 +8,9 @@ import {
   Middleware
 } from '@reduxjs/toolkit';
 import type { GetDefaultMiddleware } from '@reduxjs/toolkit/src/getDefaultMiddleware';
+import type { Middlewares } from '@reduxjs/toolkit/src/configureStore';
+import type { Tuple } from '@reduxjs/toolkit/src/utils';
+
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import { ignoreOptions, sliceOptions } from './options';
@@ -16,8 +19,7 @@ import type {
   IgnoreOptions,
   SliceOptionsItem,
   RuntimeReduxToolkit,
-  GetDefaultMiddlewareOptions,
-  Middlewares
+  GetDefaultMiddlewareOptions
 } from './types';
 
 /* 创建reducer */
@@ -58,8 +60,8 @@ function createStore(runtimeReduxToolkit: RuntimeReduxToolkit = {}): void {
   };
 
   // 中间件
-  options.middleware = function(getDefaultMiddleware: GetDefaultMiddleware): Middlewares {
-    let allMiddlewares: Middlewares
+  options.middleware = function(getDefaultMiddleware: GetDefaultMiddleware): Tuple<Middlewares<any>> {
+    let allMiddlewares: Tuple<Middlewares<any>>
       = getDefaultMiddleware<GetDefaultMiddlewareOptions>(defaultMiddlewareOptions);
 
     // RTKQuery和listenerMiddleware的中间件
