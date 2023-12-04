@@ -9,9 +9,6 @@
     "url": "git@github.com:duan602728596/umi-plugin-redux-toolkit.git"
   },
   "packageManager": "yarn@3.4.1",
-  "engines": {
-    "pm": "yarn@^3.4.1"
-  },
   "scripts": {
     "start": "rimraf ./dist && cross-env NODE_ENV=development gulp",
     "build": "rimraf ./dist && cross-env NODE_ENV=production gulp",
