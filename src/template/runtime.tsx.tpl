@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { ApplyPluginsType, PluginManager } from 'umi';
 import { getPluginManager } from '@@/core/plugin';
 import { storeFactory, replaceReducers } from './store';
-import type { IgnoreOptions, RuntimeReduxToolkit, RuntimeReduxToolkitApply } from './types';
+import type { RuntimeReduxToolkit, RuntimeReduxToolkitApply } from './types';
 
 /**
  * rootContainer
